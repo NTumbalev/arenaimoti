@@ -19,6 +19,7 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder();
 
+        //ntGallery removed
         $rootNode = $treeBuilder->root('nt_tiny_mce')
             ->children()
                 ->scalarNode('mode')->defaultValue("exact")->end()
@@ -32,7 +33,7 @@ class Configuration implements ConfigurationInterface
                 ->booleanNode('theme_advanced_resizing')->defaultTrue()->end()
                 ->booleanNode('image_advtab')->defaultTrue()->end()
                 ->booleanNode('save_enablewhendirty')->defaultTrue()->end()
-                ->scalarNode('toolbar')->defaultValue('insertfile undo redo | fontselect | fontsizeselect | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | forecolor backcolor emoticons | link image | preview media fullpage ntGallery')->end()
+                ->scalarNode('toolbar')->defaultValue('insertfile undo redo | fontselect | fontsizeselect | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | forecolor backcolor emoticons | link image | preview media fullpage')->end()
                 ->scalarNode('fontsize_formats')->defaultValue("8px 10px 12px 14px 18px 24px 36px")->end()
                 ->scalarNode('font_formats')->defaultValue('Andale Mono=andale mono,times;Arial=arial,helvetica,sans-serif;Arial Black=arial black,avant garde;Book Antiqua=book antiqua,palatino;Comic Sans MS=comic sans ms,sans-serif;Courier New=courier new,courier;Georgia=georgia,palatino;Helvetica=helvetica;Impact=impact,chicago;Symbol=symbol;Tahoma=tahoma,arial,helvetica,sans-serif;Terminal=terminal,monaco;Times New Roman=times new roman,times;Trebuchet MS=trebuchet ms,geneva;Verdana=verdana,geneva;Webdings=webdings;Wingdings=wingdings,zapf dingbats;')->end()
                 ->arrayNode('textcolor_map')

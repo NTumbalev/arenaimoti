@@ -3238,3 +3238,8 @@ blockquote{
 li.selected a {
 	color: #f55a4e;
 }
+
+li.selectedLang a {
+	color: #f55a4e;
+	background-color: #fff;
+}

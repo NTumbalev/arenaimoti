@@ -1,0 +1,12 @@
+{% if posts is defined and posts is not null and posts|length %}
+    <ul>
+        {% for item in posts %}
+            <li>
+                <a href="{{ path('post_without_category', item.routeParams()) }}">
+                    {{ item.title }}
+                </a>
+                <span class="meta-data">{{ item.publishedDate|date('d.m.Y') }}</span>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}

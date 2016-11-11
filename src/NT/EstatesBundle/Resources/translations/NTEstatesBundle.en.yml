@@ -1,0 +1,39 @@
+nt_estates: 'Estates'
+nt_estate_categories: 'Estate categories'
+
+form:
+    translations: 'Translations'
+    slug: 'Slug'
+    title: 'Title'
+    image: 'Listing image'
+    gallery: 'Gallery'
+    estate: 'Estates'
+    category: 'Estate categories'
+    description: 'Description'
+    simpleDescription: 'Simple Description'
+    youTubeVideo: "YouTube Video"
+    parent: 'Parent'
+    referenceNo: 'Reference number'
+    price: 'Price'
+    tabDescription: 'Tab Description'
+    tabTech: 'Tab Technical Specification'
+    tabVideo: 'Tab Video'
+    showSocialIcons: 'Show social icons'
+    categories: 'Categories'
+    button_title: 'Enquiry button name'
+
+tab:
+    general: 'General'
+    seo: 'SEO'
+    publish_workflow: 'Publish Workflow'
+    tabs: 'Tabs'
+
+list:
+    title: 'Title'
+    tab: 'Tab'
+    isActive: 'Is Active?'
+    category: 'Estate category'
+
+actions: 'Actions'
+select:
+  parent: '-- Please choose --'

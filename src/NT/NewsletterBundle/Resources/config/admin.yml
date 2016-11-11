@@ -1,0 +1,11 @@
+services:
+    nt.admin.newsletter:
+        class: NT\NewsletterBundle\Admin\NewsletterAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "nt_site", label: "nt_newsletter" }
+        arguments:
+            - ~
+            - NT\NewsletterBundle\Entity\Newsletter
+            - NTNewsletterBundle:NewsletterCRUD
+        calls:
+            - [ setTranslationDomain, [NTNewsletterBundle]]

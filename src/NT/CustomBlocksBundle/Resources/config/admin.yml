@@ -1,0 +1,18 @@
+parameters:
+    nt.custom_blocks.admin.custom_blocks.class: NT\CustomBlocksBundle\Admin\CustomBlocksAdmin
+    nt.custom_blocks.admin.custom_blocks.controller: NTCoreBundle:SortableCRUD
+    nt.custom_blocks.admin.custom_blocks.translation: NTCustomBlocksBundle
+
+
+services:
+    nt.custom_blocks.admin.custom_blocks:
+        class: %nt.custom_blocks.admin.custom_blocks.class%
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "nt_site", label: "nt_custom_blocks" }
+        arguments:
+            - ~
+            - %nt.custom_blocks.admin.custom_blocks.entity%
+            - %nt.custom_blocks.admin.custom_blocks.controller%
+        calls:
+            - [ setTranslationDomain, [%nt.custom_blocks.admin.custom_blocks.translation%]]
+            - [ setTemplates, [outer_list_rows_mosaic: NTCoreBundle:Admin:list_outer_rows_mosaic.html.twig]]

@@ -1,0 +1,76 @@
+{% extends '::base.html.twig' %}
+
+{% import "::paginatorWithRouteAndSlug.html.twig" as pager %}
+
+{% block main %}
+{#
+    {% include '::breadCrumbs.html.twig' with {'breadCrumbs':breadCrumbs} %}
+
+    <section id="main">
+        {% if content.translations[app.request.locale].headerImage is defined and content.translations[app.request.locale].headerImage is not null and content.translations[app.request.locale].headerImage|length %}
+            <div class="mainHead">
+                <div class="wrapper">
+                    <div class="bannerMain" style="background-image: url({% path content.translations[app.request.locale].headerImage, 'reference' %});"></div>
+                </div><!-- /.wrapper -->
+            </div><!-- /.mainHead -->
+        {% endif %}
+
+        <div class="mainBody">
+            <div class="wrapper">
+                {% set haveSideBar = false %}
+                {% if sideBar is defined and sideBar is not null and sideBar|length %}
+                    {% set haveSideBar = true %}
+                {% endif %}
+                <div class="mainContent{% if haveSideBar == false %} full{% endif %}">
+                    <h1 class="titleMain">{{ content.title }}</h1>
+
+                    {% if content.description is defined and content.description is not null and content.description|length %}
+                        <article class="article">
+                            {{ content.description|raw }}
+                        </article>
+                    {% endif %}
+
+                    <div class="boxes boxesNews">
+                        {% for item in posts %}
+                            <div class="box boxWide">
+                                <a href="{{ path('post_without_category', item.routeParams()) }}" class="photo" style="background-image: url({% if item.translations[app.request.locale].image is defined and item.translations[app.request.locale].image is not null and item.translations[app.request.locale].image|length %}
+                            {% path item.translations[app.request.locale].image, 'index' %}{% else %}'/assets/images/no-img.jpg'{% endif %});"></a>
+
+                                <div class="content">
+                                    <p class="date"><i class="iconDate"></i>{{ item.publishedDate|date('d.m.Y') }}</p>
+
+                                    <p class="title"><a href="{{ path('post_without_category', item.routeParams()) }}">{{ item.title }}</a></p>
+
+                                    {% if item.simpleDescription is defined and item.simpleDescription is not null and item.simpleDescription|length %}
+                                        <div class="text">
+                                            {{ item.simpleDescription|raw }}
+                                        </div>
+                                    {% endif %}
+
+                                    <div class="more">
+                                        <a href="{{ path('post_without_category', item.routeParams()) }}">{{ 'read_more'|trans({}, 'messages')}}</a>
+                                    </div>
+                                </div>
+                            </div><!-- /.box -->
+                        {% endfor %}
+                    </div><!-- /.boxes -->
+
+                    {% if posts is defined and posts|length %}
+                        {{ pager.pager(posts, "posts_list") }}
+                    {% endif %}
+                </div><!-- /.mainContent -->
+
+                {% if haveSideBar %}
+                    <aside class="sidebar">
+                        <p class="titleAside">{{ content.title }}</p>
+
+                        <nav class="navAside">
+                            {{ sideBar|raw }}
+                        </nav><!-- /.navAside -->
+                    </aside><!-- /.sidebar -->
+                {% endif %}
+            </div><!-- /.wrapper -->
+        </div><!-- /.mainBody -->
+    </section>
+    #}
+{% endblock %}

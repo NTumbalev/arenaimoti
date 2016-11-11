@@ -1,0 +1,120 @@
+<header class="site-header">
+  <div class="top-header hidden-xs">
+	<div class="container">
+	  <div class="row">
+		<div class="col-md-12 col-sm-6">
+		  <ul class="horiz-nav pull-right">
+              {% if settings.get('fb') is defined and settings.get('fb') is not null and settings.get('fb')|length %}
+                    <li>
+                        <a href="{{ settings.get('fb') }}" target="_blank">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                    </li>
+              {% endif %}
+
+              {% if settings.get('twitter') is defined and settings.get('twitter') is not null and settings.get('twitter')|length %}
+                    <li>
+                        <a href="{{ settings.get('twitter') }}" target="_blank">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                    </li>
+              {% endif %}
+              {% if settings.get('gplus') is defined and settings.get('gplus') is not null and settings.get('gplus')|length %}
+                    <li>
+                        <a href="{{ settings.get('gplus') }}" target="_blank">
+                            <i class="fa fa-google-plus"></i>
+                        </a>
+                    </li>
+              {% endif %}
+			</ul>
+		  </div>
+	  </div>
+	</div>
+  </div>
+  <div class="middle-header">
+	<div class="container">
+	  <div class="row">
+		<div class="col-md-4 col-sm-8 col-xs-8">
+		  <h1 class="logo">
+			  <a href="{{ path('homepage') }}">
+				  <img src="/images/logo.png" alt="Logo">
+			  </a>
+		  </h1>
+		</div>
+		<div class="col-md-8 col-sm-4 col-xs-4">
+			<div class="contact-info-blocks hidden-sm hidden-xs">
+                {% if headerBlocks is defined and headerBlocks is not null and headerBlocks|length %}
+                    {% for headerBlock in headerBlocks if headerBlock is defined and headerBlock is not null and headerBlock|length %}
+                        <div>
+                            {{ headerBlock.description|raw }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+		   </div>
+			<a href="#" class="visible-sm visible-xs menu-toggle"><i class="fa fa-bars"></i></a>
+		</div>
+	  </div>
+	</div>
+  </div>
+  <div class="main-menu-wrapper">
+	<div class="container">
+	  <div class="row">
+		<div class="col-md-12">
+		  <nav class="navigation">
+            {#
+            <ul class="sf-menu">
+			   <li><a href="index-2.html">Home</a></li>
+			  <li><a href="about.html">About Us</a></li>
+              <li><a href="submit.html">List a property</a></li>
+              <li><a href="404.html">404</a></li>
+			  <li><a href="javascript:;">Properties</a>
+				<ul class="dropdown">
+				  <li><a href="javascript:;">Listing</a>
+					<ul>
+						<li><a href="simple-listing.html">Simple Listing</a></li>
+						<li><a href="listing-map.html">Simple Listing with map</a></li>
+						<li><a href="simple-listing-fw.html">Full Width Listing</a></li>
+						<li><a href="grid-listing.html">Grid Listing</a></li>
+						<li><a href="grid-map.html">Grid Listing with map</a></li>
+						<li><a href="grid-listing-fw.html">Full Width Grid</a></li>
+					  </ul>
+				  </li>
+				  <li><a href="javascript:;">Types</a>
+					<ul>
+						<li><a href="property-type.html">Villa</a></li>
+						<li><a href="property-type.html">Single Home</a></li>
+						<li><a href="property-type.html">Cottage</a></li>
+						<li><a href="property-type.html">Family House</a></li>
+						<li><a href="property-type.html">Apartment</a></li>
+					  </ul>
+				  </li>
+				  <li><a href="javascript:;">Contract type</a>
+					<ul>
+						<li><a href="contract-type.html">Sale</a></li>
+						<li><a href="contract-type.html">Rent</a></li>
+						<li><a href="contract-type.html">Sold</a></li>
+					  </ul>
+				  </li>
+				  <li><a href="property-detail.html">Single Property</a></li>
+				  <li><a href="property-detail-fw.html">Single Property Full Width</a></li>
+				</ul>
+			  </li>
+			  <li><a href="blog-thumbnails.html">Blog</a></li>
+			  <li><a href="contact.html">Contact</a></li>
+			</ul> #}
+            {{ knp_menu_render('NTFrontendBundle:Builder:mainMenu') }}
+		  </nav>
+		</div>
+	  </div>
+	</div>
+  </div>
+</header>
+
+
+{#
+{% for locale in locales %}
+	<li{% if locale == app.request.locale %} class="selected"{% endif %}>
+		<a href="{{ urls[locale] }}"><span>{{ locale|upper }}</span></a>
+	</li>
+{% endfor %}
+#}

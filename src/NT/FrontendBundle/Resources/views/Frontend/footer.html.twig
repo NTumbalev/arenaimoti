@@ -1,0 +1,169 @@
+<footer class="site-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-sm-6 footer-widget widget">
+                <h3 class="widgettitle">{{ 'homepage_news_title'|trans({}, 'messages')}}</h3>
+                {{render(controller('NTNewsBundle:NewsFrontend:homepagePosts'))}}
+            </div>
+            <div class="col-md-3 col-sm-6 footer-widget widget">
+                {% if footerBlock is defined and footerBlock is not null and footerBlock|length %}
+                    {{footerBlock.description|raw}}
+                {% endif %}
+            </div>
+            <div class="col-md-3 col-sm-6 footer-widget widget">
+                <h3 class="widgettitle">{{ 'facebook_footer'|trans({}, 'messages')}}</h3>
+                <div class="fb-page" data-href="https://www.facebook.com/facebook" data-tabs="timeline" data-width="270" data-height="280" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/facebook" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/facebook">Facebook</a></blockquote></div>
+            </div>
+            <div class="col-md-3 col-sm-6 footer-widget widget">
+                <h3 class="widgettitle">{{ 'newsletter.title'|trans({}, 'messages')}}</h3>
+                <p>{{ 'newsletter.description'|trans({}, 'messages')}}</p>
+
+                <form id="newsletter">
+                    <input type="email" name="email" id="email" placeholder="{{ 'email_placeholder'|trans({}, "messages")}}" class="form-control">
+                    <p class="txtError" style="display:none">{{ 'newsletter.error'|trans({}, "messages")}}</p>
+                    <button id="bulletineSubmit" type="submit" class="btnSubscribe btn btn-primary btn-block btn-lg">
+                        {{ 'newsletter.submit'|trans({}, 'messages')}}
+                    </button>
+                </form>
+                <div id="messages"></div>
+            </div>
+        </div>
+    </div>
+</footer>
+<footer class="site-footer-bottom">
+    <div class="container">
+        <div class="row">
+            <div class="copyrights-col-left col-md-6 col-sm-6">
+                <p>{{ 'all_rights_reserved'|trans({}, 'messages')}}</p>
+            </div>
+            <div class="copyrights-col-right col-md-6 col-sm-6">
+                <div class="social-icons">
+                    {% if settings.get('fb') is defined and settings.get('fb') is not null and settings.get('fb')|length %}
+                        <a href="{{ settings.get('fb') }}" target="_blank">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                    {% endif %}
+
+                    {% if settings.get('twitter') is defined and settings.get('twitter') is not null and settings.get('twitter')|length %}
+                        <a href="{{ settings.get('twitter') }}" target="_blank">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                    {% endif %}
+
+                    {% if settings.get('pinterest') is defined and settings.get('pinterest') is not null and settings.get('pinterest')|length %}
+                        <a href="{{ settings.get('pinterest') }}" target="_blank">
+                            <i class="fa fa-pinterest"></i>
+                        </a>
+                    {% endif %}
+
+                    {% if settings.get('gplus') is defined and settings.get('gplus') is not null and settings.get('gplus')|length %}
+                        <a href="{{ settings.get('gplus') }}" target="_blank">
+                            <i class="fa fa-google-plus"></i>
+                        </a>
+                    {% endif %}
+
+                    {% if settings.get('youtube') is defined and settings.get('youtube') is not null and settings.get('youtube')|length %}
+                        <a href="{{ settings.get('youtube') }}" target="_blank">
+                            <i class="fa fa-youtube"></i>
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- End Site Footer -->
+<a id="back-to-top">
+    <i class="fa fa-angle-double-up"></i>
+</a>
+{#
+{% if 'NTNewsletterBundle'|bundle_exists %}
+    <section class="areaSubscribe">
+        <div class="wrapper">
+            <div class="form" id="formSubscribe">
+                <p class="note">{{ 'newsletter.title'|trans({}, 'messages')}}</p>
+
+                <form id="newsletter" action="#">
+                    <div class="field">
+                        <label for="email">{{ 'newsletter.email'|trans({}, 'messages')}}</label>
+
+                        <input placeholder="{{ 'email_placeholder'|trans({}, "messages")}}" type="email" name="email" id="email" />
+                    </div><!-- /.field -->
+
+                    <p class="txtError" style="display:none">{{ 'newsletter.error'|trans({}, "messages")}}</p>
+
+                    <button id="bulletineSubmit" type="submit" class="btnSubscribe">{{ 'newsletter.submit'|trans({}, 'messages')}}</button>
+                </form>
+                <div id="messages">
+
+                </div>
+            </div><!-- /.form -->
+        </div><!-- /.wrapper -->
+    </section><!-- /.areaSubscribe -->
+{% endif %}
+
+<footer id="footer">
+    <div class="footerTop">
+        <div class="wrapper">
+            <div class="cols">
+                {% if footerBlocks is defined and footerBlocks is not null and footerBlocks|length %}
+                    {% for fb in footerBlocks if fb is defined and fb is not null and fb|length %}
+                        <div class="col colArticle">
+                            <article class="article">
+                                {{ fb.description|raw }}
+                            </article><!-- /.article -->
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <div class="col">
+                    <h6>{{ 'footer_socials_title'|trans({}, 'messages')}}</h6>
+
+                    <div class="socials socialsFooter">
+                        {% if settings.get('fb') is defined and settings.get('fb') is not null and settings.get('fb')|length %}
+                            <a class="socialsItem facebook" href="{{ settings.get('fb') }}" target="_blank"></a>
+                        {% endif %}
+
+                        {% if settings.get('twitter') is defined and settings.get('twitter') is not null and settings.get('twitter')|length %}
+                            <a class="socialsItem twitter" href="{{ settings.get('twitter') }}" target="_blank"></a>
+                        {% endif %}
+
+                        {% if settings.get('gplus') is defined and settings.get('gplus') is not null and settings.get('gplus')|length %}
+                            <a class="socialsItem google" href="{{ settings.get('gplus') }}" target="_blank"></a>
+                        {% endif %}
+
+                        {% if settings.get('pinterest') is defined and settings.get('pinterest') is not null and settings.get('pinterest')|length %}
+                            <a class="socialsItem pinterest" href="{{ settings.get('pinterest') }}" target="_blank"></a>
+                        {% endif %}
+
+                        {% if settings.get('linkedin') is defined and settings.get('linkedin') is not null and settings.get('linkedin')|length %}
+                            <a class="socialsItem linkedin" href="{{ settings.get('linkedin') }}" target="_blank"></a>
+                        {% endif %}
+
+                        {% if settings.get('instagram') is defined and settings.get('instagram') is not null and settings.get('instagram')|length %}
+                            <a class="socialsItem instagram" href="{{ settings.get('instagram') }}" target="_blank"></a>
+                        {% endif %}
+
+                        {% if settings.get('youtube') is defined and settings.get('youtube') is not null and settings.get('youtube')|length %}
+                            <a class="socialsItem youtube" href="{{ settings.get('youtube') }}" target="_blank"></a>
+                        {% endif %}
+                    </div><!-- /.socials -->
+                </div>
+            </div><!-- /.cols -->
+        </div>
+    </div>
+
+    <div class="footerBottom">
+        <div class="wrapper">
+            <p class="copy">{{ 'all_rights_reserved'|trans({}, 'messages')}} | <a href="{{ path('sitemap') }}">{{ 'sitemap_text'|trans({}, "messages")}}</a></p>
+
+            {% if footerText is defined and footerText is not null and footerText|length and footerText.description is defined and footerText.description is not null and footerText.description|length %}
+                <article class="article" id="blockFooter">
+                    {{ footerText.description|raw }}
+                </article>
+            {% endif %}
+        </div>
+    </div>
+</footer>
+</div><!-- /#sb-site -->
+#}

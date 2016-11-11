@@ -1,0 +1,482 @@
+{% extends '::base.html.twig' %}
+
+{% import '::renderSocials.html.twig' as renderSocials %}
+
+{% block main %}
+    {% if estate.latitude is defined and estate.latitude is not null and estate.latitude|length and estate.longitude is defined and estate.longitude is not null and estate.longitude|length %}
+        <div class="site-showcase">
+            <div class="clearfix map-single-page" id="contact-map"></div>
+        </div>
+    {% endif %}
+
+    <div class="main" role="main">
+        <div id="content" class="content full">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="single-property">
+                            <h2 class="page-title">
+                                {{estate.title}}
+                                {% if estate.location is defined and estate.location is not null and estate.location | length %},
+                                    <span class="location">{{estate.location}}</span>
+                                {% endif %}
+                            </h2>
+                            {% if estate.price is defined and estate.price is not null and estate.price | length %}
+                                <div class="price">
+                                    <span>{{ estate.price }}</span>
+                                    <strong>
+                                        {{ estate.currency|trans({}, 'messages')}}
+                                    </strong>
+                                </div>
+                            {% endif %}
+                            <div class="property-amenities clearfix">
+                                {% if estate.area is defined and estate.area is not null and estate.area | length %}
+                                    <span class="area">
+                                        <strong>
+                                            {{estate.area}}
+                                        </strong>
+                                        m<sup>2</sup>
+                                    </span>
+                                {% endif %}
+
+                                {% if estate.baths is defined and estate.baths is not null and estate.baths | length %}
+                                    <span class="baths">
+                                        <strong>{{estate.baths}}</strong>
+                                        {{ 'estate.baths'|trans({}, 'messages')}}
+                                    </span>
+                                {% endif %}
+
+                                {% if estate.beds is defined and estate.beds is not null and estate.beds | length %}
+                                    <span class="beds">
+                                        <strong>{{ estate.beds }}</strong>
+                                        {{ 'estate.beds'|trans({}, 'messages')}}
+                                    </span>
+                                {% endif %}
+
+                                {% if estate.parking is defined and estate.parking is not null and estate.parking | length %}
+                                    <span class="parking">
+                                        <strong>{{estate.parking}}</strong>
+                                        {{ 'estate.parking'|trans({}, 'messages')}}
+                                    </span>
+                                {% endif %}
+                            </div>
+                            {% if estate.translations[app.request.locale].gallery is defined and estate.translations[app.request.locale].gallery is not null and estate.translations[app.request.locale].gallery | length and estate.translations[app.request.locale].gallery.galleryHasMedias is defined and estate.translations[app.request.locale].gallery.galleryHasMedias is not null and estate.translations[app.request.locale].gallery.galleryHasMedias | length %}
+                                <div class="property-slider">
+                                    <div id="property-images" class="flexslider">
+                                        <ul class="slides">
+                                            {% for image in estate.translations[app.request.locale].gallery.galleryHasMedias %}
+                                                <li class="item">
+                                                    {% thumbnail image.media,
+                                                    'index' with {'title': image.media.title, 'alt': image.media.title} %}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                    <div id="property-thumbs" class="flexslider">
+                                        <ul class="slides">
+                                            {% for image in estate.translations[app.request.locale].gallery.galleryHasMedias %}
+                                                <li class="item">
+                                                    {% thumbnail image.media,
+                                                    'thumb' with {'title': image.media.title, 'alt': image.media.title} %}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        {% if relatedEstates is defined and relatedEstates is not null and relatedEstates | length %}
+                            <h3>{{ 'relatedEstates.title'|trans({}, 'messages')}}</h3>
+                            <hr>
+                            <div class="property-grid">
+                                <ul class="grid-holder col-3">
+                                    {% for rp in relatedEstates %}
+                                        <li class="grid-item type-rent">
+                                            <div class="property-block">
+                                                <a href="{{ path('estate_without_category', rp.routeParams) }}" class="property-featured-image">
+                                                    {% if rp.translations[app.request.locale].image is defined and rp.translations[app.request.locale].image is not null and rp.translations[app.request.locale].image | length %}
+                                                        {% thumbnail rp.translations[app.request.locale].image,
+                                                        'index' with {'title': rp.title, 'alt': rp.title} %}
+                                                    {% endif %}
+                                                    {% if rp.translations[app.request.locale].gallery is defined and rp.translations[app.request.locale].gallery is not null and rp.translations[app.request.locale].gallery | length %}
+                                                        <span class="images-count">
+                                                            <i class="fa fa-picture-o"></i>
+                                                            {{
+                                                            rp.translations[app.request.locale].gallery.galleryHasMedias|length
+                                                            }}
+                                                        </span>
+                                                    {% endif %}
+                                                    {# <span class="badges">Rent</span> #}
+                                                </a>
+                                                <div class="property-info">
+                                                    <h4>
+                                                        <a href="{{ path('estate_without_category', rp.routeParams) }}">
+                                                            {{rp.title}}
+                                                        </a>
+                                                    </h4>
+                                                    {% if rp.location is defined and rp.location is not null and rp.location | length %},
+                                                        <span class="location">{{rp.location}}</span>
+                                                    {% endif %}
+                                                    {% if rp.price is defined and rp.price is not null and rp.price | length %}
+                                                        <div class="price">
+                                                            <span>{{ rp.price }}</span>
+                                                            <strong>
+                                                                {{ rp.currency|trans({}, 'messages')}}
+                                                            </strong>
+                                                        </div>
+                                                    {% endif %}
+                                                </div>
+                                                <div class="property-amenities clearfix">
+                                                    {% if rp.area is defined and rp.area is not null and rp.area | length %}
+                                                        <span class="area">
+                                                            <strong>
+                                                                {{rp.area}}
+                                                            </strong>
+                                                            m<sup>2</sup>
+                                                        </span>
+                                                    {% endif %}
+
+                                                    {% if rp.baths is defined and rp.baths is not null and rp.baths | length %}
+                                                        <span class="baths">
+                                                            <strong>{{rp.baths}}</strong>
+                                                            {{ 'estate.baths'|trans({}, 'messages')}}
+                                                        </span>
+                                                    {% endif %}
+
+                                                    {% if rp.beds is defined and rp.beds is not null and rp.beds | length %}
+                                                        <span class="beds">
+                                                            <strong>{{ rp.beds }}</strong>
+                                                            {{ 'estate.beds'|trans({}, 'messages')}}
+                                                        </span>
+                                                    {% endif %}
+
+                                                    {% if rp.parking is defined and rp.parking is not null and rp.parking | length %}
+                                                        <span class="parking">
+                                                            <strong>{{rp.parking}}</strong>
+                                                            {{ 'estate.parking'|trans({}, 'messages')}}
+                                                        </span>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="sidebar right-sidebar col-md-4">
+                        {% if estate.description is defined and estate.description is not null and estate.description | length %}
+                            <div class="widget">
+                                <h3 class="widgettitle">
+                                    {{ 'description'|trans({}, 'messages')}}
+                                </h3>
+                                <div id="description">
+                                    {{ estate.description|raw }}
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        {% if attributes is defined and attributes is not null and attributes | length %}
+                            <div class="widget">
+                                <h3 class="widgettitle">
+                                    {{ 'attributes'|trans({}, 'messages')}}
+                                </h3>
+                                <div id="amenities">
+                                    <div class="additional-amenities">
+                                        {% for attribute in attributes %}
+                                            <span class="{% if attribute in estate.attributes == false %}n{% endif %}available">
+                                                <i class="fa fa-check-square"></i>
+                                                {{attribute.title}}
+                                            </span>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{#
+    {% include '::breadCrumbs.html.twig' with {'breadCrumbs':breadCrumbs} %}
+
+    <section id="main">
+        {% include '::headerImage.html.twig' with {'content':estate} %}
+
+        <div class="mainBody">
+            <div class="wrapper">
+                {% set haveSideBar = false %}
+                {% if sideBar is defined and sideBar is not null and sideBar|length %}
+                    {% set haveSideBar = true %}
+                {% endif %}
+                <div class="mainContent{% if haveSideBar == false %} full{% endif %}">
+                    <h1 class="titleMain">{{ estate.title }}</h1>
+
+                    {% set haveGallery = false %}
+                    {% if estate.translations[app.request.locale].gallery is defined and estate.translations[app.request.locale].gallery is not null and estate.translations[app.request.locale].gallery|length and estate.translations[app.request.locale].gallery.galleryHasMedias is defined and estate.translations[app.request.locale].gallery.galleryHasMedias is not null and estate.translations[app.request.locale].gallery.galleryHasMedias|length and estate.translations[app.request.locale].gallery.enabled %}
+                        {% for item in estate.translations[app.request.locale].gallery.galleryHasMedias %}
+                            {% if item.enabled %}
+                                {% set haveGallery = true %}
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+
+                    {% if haveGallery %}
+                        <div class="gallery" id="galleryMain">
+                            <ul>
+                                {% for item in estate.translations[app.request.locale].gallery.galleryHasMedias %}
+                                    {% if item.media is defined and item.media is not null and item.media|length and item.enabled %}
+                                        <li data-thumb="{% path item.media, 'thumb' %}">
+                                            <a href="{% path item.media, 'reference' %}" class="galleryPhoto">
+                                                {% thumbnail item.media, 'index' with {'title':item.media.title, 'alt':item.media.title} %}
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div><!-- /.gallery -->
+                    {% endif %}
+
+                    <div class="estateDescription">
+                        {% if estate.referenceNo is defined and estate.referenceNo is not null and estate.referenceNo|length %}
+                            <p class="refNumber">{{ 'reference_no'|trans({}, 'messages')}} {{ estate.referenceNo }}</p>
+                        {% endif %}
+                        {% if estate.price is defined and estate.price is not null and estate.price|length %}
+                            <p class="estatePrice">{{ 'price'|trans({}, 'messages')}} {{ estate.price }}</p>
+                        {% endif %}
+
+                        {% if estate.description is defined and estate.description is not null and estate.description|length %}
+                            <article class="article">
+                                {{ estate.description|graw }}
+                            </article><!-- /.article -->
+                        {% endif %}
+
+                        {% if estate.buttonTitle is defined and estate.buttonTitle is not null and estate.buttonTitle|length %}
+                            <div class="btns">
+                                <a href="{{ path('contact_estate', {'item':estate.slug}) }}" class="btnPrimary" rel="nofollow">
+                                    {{ estate.buttonTitle }}
+                                </a>
+                            </div><!-- /.btns -->
+                        {% endif %}
+                    </div><!-- /.estateDescription -->
+
+                    {% set haveTabDescription = false %}
+                    {% if estate.tabDescription is defined and estate.tabDescription is not null and estate.tabDescription|length %}
+                        {% set haveTabDescription = true %}
+                    {% endif %}
+
+                    {% set haveTabTech = false %}
+                    {% if estate.tabTech is defined and estate.tabTech is not null and estate.tabTech|length %}
+                        {% set haveTabTech = true %}
+                    {% endif %}
+
+                    {% set haveTabVideo = false %}
+                    {% if estate.translations[app.request.locale].youTubeVideo is defined and estate.translations[app.request.locale].youTubeVideo is not null and estate.translations[app.request.locale].youTubeVideo|length %}
+                        {% set haveTabVideo = true %}
+                    {% endif %}
+
+                    {% if haveTabDescription or haveTabTech or haveTabVideo %}
+                        <div class="tabs estateTabs">
+                            <div class="tabsNav">
+                                <ul>
+                                    {% if haveTabDescription %}
+                                        <li><a href="#tabDescription">{{ 'tabDescription'|trans({}, 'messages')}}</a></li>
+                                    {% endif %}
+
+                                    {% if haveTabTech %}
+                                        <li><a href="#tabSpecs">{{ 'tabTech'|trans({}, 'messages')}}</a></li>
+                                    {% endif %}
+
+                                    {% if haveTabVideo %}
+                                        <li><a href="#tabVideo">{{ 'tabVideo'|trans({}, 'messages')}}</a></li>
+                                    {% endif %}
+                                </ul>
+                            </div><!-- /.tabsNav -->
+
+                            <div class="tabsContent">
+                                {% if haveTabDescription %}
+                                    <div class="tab" id="tabDescription">
+                                        <article class="article">
+                                            {{ estate.tabDescription|graw }}
+                                        </article>
+                                    </div><!-- /.tab -->
+                                {% endif %}
+
+                                {% if haveTabTech %}
+                                    <div class="tab" id="tabSpecs">
+                                        <article class="article">
+                                            {{ estate.tabTech|graw }}
+                                        </article>
+                                    </div><!-- /.tab -->
+                                {% endif %}
+
+                                {% if haveTabVideo %}
+                                    <div class="tab" id="tabVideo">
+                                        <article class="article">
+                                            {{ estate.translations[app.request.locale].youTubeVideo|raw }}
+                                        </article>
+                                    </div><!-- /.tab -->
+                                {% endif %}
+                            </div><!-- /.tabsContent -->
+                        </div><!-- /.tabs -->
+                    {% endif %}
+
+                    {% if estate.shareIcons %}
+                        <div class="shareBar">
+                            <p>{{ 'share'|trans({}, 'messages')}}</p>
+
+                            <div class="socials socialsShare">
+                                {{ renderSocials.renderSocials }}
+                            </div><!-- /.socials -->
+                        </div><!-- /.shareBar -->
+                    {% endif %}
+
+                    {% if sameCategoryEstates is defined and sameCategoryEstates is not null and sameCategoryEstates|length %}
+                        <div class="module moduleRelated">
+                            <div class="moduleHead">
+                                <p class="title">{{ 'same_category_estates'|trans({}, 'messages')}}</p>
+
+                                <div class="more">
+                                    <a href="{{ path(category.route, category.routeParams) }}">{{ 'see_all'|trans({}, 'messages')}}</a>
+                                </div>
+                            </div><!-- /.moduleHead -->
+
+                            <div class="moduleBody">
+                                <div class="boxes">
+                                    {% for item in sameCategoryEstates %}
+                                        {% set itemRoute = item.route %}
+                                        {% if category is defined and category is not null and category|length and item.route != 'estate_category' %}
+                                            {% set itemRoute = 'estate' %}
+                                        {% endif %}
+                                        <div class="box">
+                                            <a href="{{ path(itemRoute, item.routeParams({'categorySlug':category.slug})) }}" class="photo" style="background-image: url({% if item.translations[app.request.locale].image is defined and item.translations[app.request.locale].image is not null and item.translations[app.request.locale].image|length %}{% path item.translations[app.request.locale].image, 'index' %}{% else %}'/assets/images/no-img.jpg'{% endif %});"></a>
+
+                                            <div class="content">
+                                                <p class="title">
+                                                    <a href="{{ path(itemRoute, item.routeParams({'categorySlug':category.slug})) }}">
+                                                        {{ item.title }}
+                                                    </a>
+                                                </p>
+
+                                                {% if item.simpleDescription is defined and item.simpleDescription is not null and item.simpleDescription|length %}
+                                                <div class="text">
+                                                    <p>{{ item.simpleDescription }}</p>
+                                                </div>
+                                                {% endif %}
+                                            </div>
+                                        </div><!-- /.box -->
+                                    {% endfor %}
+                                </div><!-- /.boxes -->
+                            </div><!-- /.moduleBody -->
+                        </div><!-- /.module -->
+                    {% endif %}
+                </div><!-- /.mainContent -->
+
+                {% if haveSideBar %}
+                    <aside class="sidebar">
+                        <p class="titleAside">{{ content.title }}</p>
+
+                        <nav class="navAside">
+                            {{ sideBar|raw }}
+                        </nav><!-- /.navAside -->
+                    </aside><!-- /.sidebar -->
+                {% endif %}
+            </div><!-- /.wrapper -->
+        </div><!-- /.mainBody -->
+    </section>
+    #}
+{% endblock %}
+
+{% block javascripts %}
+    {{parent()}}
+    {% if estate.latitude is defined and estate.latitude is not null and estate.latitude|length and estate.longitude is defined and estate.longitude is not null and estate.longitude|length %}
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlvoE-NOPnju-y-33J0IWcrmgcWvMz2FI"></script>
+        <script>
+            $(function() {
+                // google map
+                var $map = $('#contact-map');
+                var locations = {};
+
+                locations = {"1":{"latitude":"{{estate.latitude}}","longitude":"{{estate.longitude}}", "pinDescription":''}
+                };
+
+                if (countObjectlocations(locations)) {
+                    initMap($map.selector, locations);
+                } else {
+                    $map.hide();
+                }
+            });
+
+            // google map
+            function countObjectlocations (locations) {
+                var count = 0;
+                for (i in locations) {
+                    if (locations.hasOwnProperty(i)) {
+                        count++;
+                    }
+                }
+                return count > 0 ? true : false;
+            }
+
+            function initMap (mapElement, locations) {
+                // get map selector
+                mapElement = mapElement.replace('#', '');
+
+                var customStyles = [];
+                for (first in locations) {
+                    var firstIndex = first;
+                    break;
+                };
+                var mapOptions = {
+                    zoom: 17,
+                    styles: customStyles,
+                    disableDefaultUI: false,
+                    center: new google.maps.LatLng( locations[firstIndex].latitude, locations[firstIndex].longitude ),
+                    panControl: true,
+                    zoomControl: true,
+                    mapTypeControl: true,
+                    scaleControl: true,
+                    streetViewControl: true,
+                    overviewMapControl: true,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                }
+
+                var map = new google.maps.Map(document.getElementById(mapElement), mapOptions);
+
+                var markerBounds = new google.maps.LatLngBounds();
+
+                var infowindow = new google.maps.InfoWindow();
+
+                var marker;
+                for (i in locations) {
+                    // var iconUrl = "images/mapPin.png",
+                    // iconSize = new google.maps.Size(55, 65);
+                    var markerPosition = new google.maps.LatLng(locations[i].latitude, locations[i].longitude);
+                    marker = new google.maps.Marker({
+                        position: markerPosition,
+                        map: map,
+                        animation: google.maps.Animation.DROP,
+                        // icon: {
+                        //     url: iconUrl,
+                        //     scaledSize: iconSize
+                        //     // anchor: new google.maps.Point(23, 64) // pin point position
+                        // }
+                    });
+                    markerBounds.extend(markerPosition);
+
+                    // add infoWindow to each pin
+                    if (locations[i].pinDescription) {
+                        google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                            return function() {
+                                infowindow.setContent('<div class="tooltip">'+locations[i].pinDescription+'</div>');
+                                infowindow.open(map, marker);
+                            }
+                        })(marker, i));
+                    }
+                }
+            }
+        </script>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,182 @@
+{% extends '::base.html.twig' %}
+
+{% import "::paginatorWithRouteAndSlug.html.twig" as pager %}
+
+{% block main %}
+
+{% include '::headerImage.html.twig' with {'content': content} %}
+
+<div class="main" role="main">
+    <div id="content" class="content full">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="block-heading">
+                        <h4>
+                            <span class="heading-icon">
+                                <i class="fa fa-th-list"></i>
+                            </span>
+                            {{content.title}}
+                        </h4>
+                        {# <div class="toggle-view pull-right"><a href="grid-listing-fw.html"><i class="fa fa-th-large"></i></a>
+                            <a href="{{path('homepage')}}" class="active">
+                                <i class="fa fa-th-list"></i>
+                            </a>
+                        </div> #}
+                    </div>
+                    <div class="property-listing">
+                        {% if estates is defined and estates is not null and estates|length %}
+                            <ul>
+                                {% for estate in estates %}
+                                    <li class="type-rent col-md-12">
+                                        <div class="col-md-4">
+                                            <a href="{{ path('estate_without_category', estate.routeParams) }}" class="property-featured-image">
+                                                {% thumbnail estate.translations[app.request.locale].image, 'index' with {'title':estate.title, 'alt':estate.title} %}
+                                                {% if estate.translations[app.request.locale].gallery is defined and estate.translations[app.request.locale].gallery is not null and estate.translations[app.request.locale].gallery|length %}
+                                                    <span class="images-count">
+                                                        <i class="fa fa-picture-o"></i>
+                                                        {{
+                                                        estate.translations[app.request.locale].gallery.galleryHasMedias|length
+                                                        }}
+                                                    </span>
+                                                {% endif %}
+                                                {# <span class="badges">Rent</span> #}
+                                            </a>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="property-info">
+                                                {% if estate.price is defined and estate.price is not null and estate.price|length %}
+                                                    <div class="price">
+                                                        <span>{{ estate.price }}</span>
+                                                        <strong>
+                                                            {{ estate.currency|trans({}, 'messages')}}
+                                                        </strong>
+                                                    </div>
+                                                {% endif %}
+                                                <h3>
+                                                    <a href="{{ path('estate_without_category', estate.routeParams) }}">
+                                                        {{estate.title}}
+                                                    </a>
+                                                </h3>
+
+                                                {% if estate.location is defined and estate.location is not null and estate.location|length %}
+                                                    <span class="location">
+                                                        {{estate.location}}
+                                                    </span>
+                                                {% endif %}
+
+                                                {% if estate.simpleDescription is defined and estate.simpleDescription is not null and estate.simpleDescription|length %}
+                                                    <p>
+                                                        {{estate.simpleDescription}}
+                                                    </p>
+                                                {% endif %}
+                                            </div>
+                                            <div class="property-amenities clearfix">
+                                                {% if estate.area is defined and estate.area is not null and estate.area|length %}
+                                                    <span class="area">
+                                                        <strong>
+                                                            {{estate.area}}
+                                                        </strong>
+                                                        m<sup>2</sup>
+                                                    </span>
+                                                {% endif %}
+
+                                                {% if estate.baths is defined and estate.baths is not null and estate.baths|length %}
+                                                    <span class="baths">
+                                                        <strong>{{estate.baths}}</strong>
+                                                        {{ 'estate.baths'|trans({}, 'messages')}}
+                                                    </span>
+                                                {% endif %}
+
+                                                {% if estate.beds is defined and estate.beds is not null and estate.beds|length %}
+                                                    <span class="beds">
+                                                        <strong>{{ estate.beds }}</strong>
+                                                        {{ 'estate.beds'|trans({}, 'messages')}}
+                                                    </span>
+                                                {% endif %}
+
+                                                {% if estate.parking is defined and estate.parking is not null and estate.parking|length %}
+                                                    <span class="parking">
+                                                        <strong>{{estate.parking}}</strong>
+                                                        {{ 'estate.parking'|trans({}, 'messages')}}
+                                                    </span>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+
+                    {% if estates is defined and estates is not null and estates|length %}
+                        {{ pager.pager(estates, "estates_list") }}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    {#
+    {% include '::breadCrumbs.html.twig' with {'breadCrumbs':breadCrumbs} %}
+
+    <section id="main">
+        {% include '::headerImage.html.twig' with {'content':estateCategory} %}
+
+        <div class="mainBody">
+            <div class="wrapper">
+                {% set haveSideBar = false %}
+                {% if sideBar is defined and sideBar is not null and sideBar|length %}
+                    {% set haveSideBar = true %}
+                {% endif %}
+                <div class="mainContent{% if haveSideBar == false %} full{% endif %}">
+                    <h1 class="titleMain">{{ estateCategory.title }}</h1>
+
+                    {% if estateCategory.description is defined and estateCategory.description is not null and estateCategory.description|length %}
+                        <article class="article">
+                            {{ estateCategory.description|raw }}
+                        </article>
+                    {% endif %}
+
+                    <div class="boxes boxesEstates">
+                        {% for estateCategoryChild in estateCategoryChildren %}
+                            <div class="box">
+                                <a href="{{ path(estateCategoryChild.route, estateCategoryChild.routeParams) }}" class="photo" style="background-image: url({% if estateCategoryChild.translations[app.request.locale].image is defined and estateCategoryChild.translations[app.request.locale].image is not null and estateCategoryChild.translations[app.request.locale].image|length %}{% path estateCategoryChild.translations[app.request.locale].image, 'index' %}{% else %}'/assets/images/no-img.jpg'{% endif %});"></a>
+
+                                <div class="content">
+                                    <p class="title">
+                                        <a href="{{ path(estateCategoryChild.route, estateCategoryChild.routeParams) }}">
+                                            {{ estateCategoryChild.title }}
+                                        </a>
+                                    </p>
+
+                                    {% if estateCategoryChild.simpleDescription is defined and estateCategoryChild.simpleDescription is not null and estateCategoryChild.simpleDescription|length %}
+                                        <div class="text">
+                                            <p>{{ estateCategoryChild.simpleDescription }}</p>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div><!-- /.box -->
+                        {% endfor %}
+                    </div><!-- /.boxes -->
+
+
+                    {% if estateCategoryChildren is defined and estateCategoryChildren|length %}
+                        {{ pager.pager(estateCategoryChildren, estateCategory.route, estateCategory.slug, 'categorySlug') }}
+                    {% endif %}
+                </div><!-- /.mainContent -->
+
+                {% if haveSideBar %}
+                    <aside class="sidebar">
+                        <p class="titleAside">{{ content.title }}</p>
+
+                        <nav class="navAside">
+                            {{ sideBar|raw }}
+                        </nav><!-- /.navAside -->
+                    </aside><!-- /.sidebar -->
+                {% endif %}
+            </div><!-- /.wrapper -->
+        </div><!-- /.mainBody -->
+    </section>
+    #}
+{% endblock %}

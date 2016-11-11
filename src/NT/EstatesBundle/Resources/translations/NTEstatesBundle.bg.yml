@@ -1,0 +1,53 @@
+nt_estates: 'Имоти'
+nt_estate_categories: 'Категории имоти'
+nt_attributes: 'Атрибути'
+nt_locations: 'Локации'
+
+form:
+    translations: 'Преводи'
+    slug: 'Слъг'
+    title: 'Заглавие'
+    image: 'Изображение в листинга'
+    gallery: 'Галерия'
+    estate: 'Продукти'
+    category: 'Продуктова категория'
+    description: 'Описание'
+    simpleDescription: 'Кратко описание'
+    youTubeVideo: "YouTube Видео"
+    parent: 'Родител'
+    referenceNo: 'Референтен номер'
+    price: 'Цена'
+    tabDescription: 'Таб Описание'
+    tabTech: 'Таб Технически характеристики'
+    tabVideo: 'Таб Видео'
+    showSocialIcons: 'Покажи социалните икони'
+    categories: 'Категории'
+    button_title: 'Име на бутон за запитване'
+    currency: 'Валута'
+    beds: 'Спални'
+    baths: 'Бани'
+    parking: 'Паркинг'
+    attributes: 'Атрибути'
+    isHomepage: 'На начална страница?'
+    area: 'кв.м.'
+    location: 'Локация'
+    longitude: 'Географска дължина'
+    latitude: 'Географска ширина'
+    relatedEstates: 'Свързани имоти'
+    type: 'Тип'
+
+tab:
+    general: 'Основни'
+    seo: 'SEO'
+    publish_workflow: 'Видимост в сайта'
+    tabs: 'Табове'
+
+list:
+    title: 'Заглавие'
+    tab: 'Таб'
+    isActive: 'Активен?'
+    category: 'Продуктова категория'
+
+actions: 'Действия'
+select:
+  parent: '-- Моля изберете --'

@@ -1,0 +1,59 @@
+parameters:
+    nt.estates.admin.estates.translation: NTEstatesBundle
+
+services:
+    nt.estates.admin.estates:
+        class: NT\EstatesBundle\Admin\EstatesAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "nt_site_estates", label: "nt_estates" }
+        arguments:
+            - ~
+            - NT\EstatesBundle\Entity\Estate
+            - NTCoreBundle:SortableCRUD
+        calls:
+            - [ setTranslationDomain, [%nt.estates.admin.estates.translation%]]
+            - [ setTemplates, [outer_list_rows_mosaic: NTCoreBundle:Admin:list_outer_rows_mosaic.html.twig]]
+
+    nt.estate_categories.admin.estate_category:
+        class: NT\EstatesBundle\Admin\EstateCategoryAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "nt_site_estates", label: "nt_estate_categories", audit: true }
+        arguments:
+            - ~
+            - NT\EstatesBundle\Entity\EstateCategory
+            - NTCoreBundle:TreeCRUD
+        calls:
+            - [ setTranslationDomain, [%nt.estates.admin.estates.translation%]]
+            - [ setTemplates, [outer_list_rows_mosaic: NTCoreBundle:Admin:list_outer_rows_mosaic.html.twig]]
+
+    nt.estates.admin.estates_translations:
+        class: NT\EstatesBundle\Admin\EstatesTranslationsAdmin
+        arguments: [~, NT\EstatesBundle\Entity\EstateTranslation, ~]
+        tags:
+            - {name: sonata.admin, manager_type: orm, show_in_dashboard: false}
+        calls:
+            - [ setTranslationDomain, [%nt.estates.admin.estates.translation%]]
+
+    nt.estates.admin.estate_category_translations:
+        class: NT\EstatesBundle\Admin\EstateCategoryTranslationsAdmin
+        arguments: [~, NT\EstatesBundle\Entity\EstateCategoryTranslation, ~]
+        tags:
+            - {name: sonata.admin, manager_type: orm, show_in_dashboard: false}
+        calls:
+            - [ setTranslationDomain, [%nt.estates.admin.estates.translation%]]
+
+    nt.attributes.admin.attributes:
+        class: NT\EstatesBundle\Admin\AttributesAdmin
+        arguments: [~, NT\EstatesBundle\Entity\Attribute, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "nt_site_attributes", label: "nt_attributes", audit: true }
+        calls:
+            - [ setTranslationDomain, [%nt.estates.admin.estates.translation%]]
+
+    nt.locations.admin.locations:
+        class: NT\EstatesBundle\Admin\LocationsAdmin
+        arguments: [~, NT\EstatesBundle\Entity\Location, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "nt_site_locations", label: "nt_locations", audit: true }
+        calls:
+            - [ setTranslationDomain, [%nt.estates.admin.estates.translation%]]

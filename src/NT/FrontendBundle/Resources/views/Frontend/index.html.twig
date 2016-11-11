@@ -1,0 +1,43 @@
+{% extends '::base.html.twig' %}
+
+{% block main %}
+
+    {% if 'NTSliderBundle' | bundle_exists %}
+        {{ render(controller("NTSliderBundle:SliderFrontend:homepageSlider")) }}
+    {% endif %}
+
+    <div class="site-showcase">
+        <div class="slider-mask overlay-transparent"></div>
+
+        {{render(controller('NTEstatesBundle:EstatesFrontend:homepageSearch'))}}
+    </div>
+
+    {{render(controller('NTEstatesBundle:EstatesFrontend:homepageEstates'))}}
+{% endblock %}
+
+{% block javascripts %}
+    {{parent()}}
+    <script type="text/javascript">
+        $(function(){
+            $('#ads-trigger').click(function () {
+            	if ($(this).hasClass('advanced')) {
+            		$(this).removeClass('advanced');
+            		$(".site-search-module").animate({
+            			'bottom': '-107px'
+            		});
+            		$(this).html('<i class="fa fa-plus"></i> {{ 'product.advanced'|trans({}, 'messages')}}');
+            		$('.slider-mask').fadeOut(500);
+            	} else {
+
+            		$(this).addClass('advanced');
+            		$(".site-search-module").animate({
+            			'bottom': '-15px'
+            		});
+            		$(this).html('<i class="fa fa-minus"></i> {{ 'product.basic'|trans({}, 'messages')}}');
+            		$('.slider-mask').fadeIn(500);
+            	}
+            	return false;
+            });
+        })
+    </script>
+{% endblock %}

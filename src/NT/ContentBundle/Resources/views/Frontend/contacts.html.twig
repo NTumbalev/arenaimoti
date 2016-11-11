@@ -1,0 +1,213 @@
+{% extends '::base.html.twig' %}
+
+{% block main %}
+    <div class="site-showcase">
+        <div class="parallax page-header" id="contact-map"></div>
+    </div>
+
+    <div class="main" role="main">
+        <div id="content" class="content full">
+            <div class="container">
+                <div class="page">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <h3>
+                                {% if item is defined and item is not null and item | length %}
+                                    {{ 'contact.enquiryFor'|trans({}, 'messages')}}
+                                    {{ item.title }}
+                                {% else %}
+                                    {{ 'contact.title'|trans({}, 'messages')}}
+                                {% endif %}
+                            </h3>
+                            <div class="row">
+                                {% form_theme form with 'NTContentBundle:Form:contact_form.html.twig' %}
+                                {{ form_start(form, { 'attr': {'novalidate': 'novalidate' }}) }}
+                                    <div class="col-md-6 margin-15">
+                                        <div class="form-group">
+                                            {{ form_row(form.name) }}
+                                            {# <input type="text" id="name" name="name" class="" placeholder="Name*"> #}
+                                        </div>
+                                        <div class="form-group">
+                                            {{ form_row(form.email) }}
+                                            {# <input type="email" id="email" name="email" class="" placeholder="Email*"> #}
+                                        </div>
+                                        <div class="form-group">
+                                            {{ form_row(form.phone) }}
+                                            {# <input type="text" id="phone" name="phone" class="" placeholder="Phone"> #}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            {{ form_row(form.message) }}
+                                            {# <textarea cols="6" rows="5" id="comments" name="comments" class="form-control input-lg" placeholder="Message"></textarea> #}
+                                            {{ form_row(form.submit) }}
+                                            {# <input id="submit" name="submit" type="submit" class="" value="Submit now!"> #}
+                                        </div>
+                                    </div>
+                                {{ form_end(form) }}
+                            </div>
+                            <div class="clearfix"></div>
+                            <div id="message">
+                                {% if app.session.flashbag.get('success') %}
+                                    <div class="alert alert-success fade in"> <a class="close" data-dismiss="alert" href="#">×</a>
+                                        {{'contact.success'|trans({}, 'messages')}}
+                                    </div>
+                                {% endif %}
+
+                                {% if app.session.flashbag.get('error') %}
+                                    <div class="alert alert-error fade in"> <a class="close" data-dismiss="alert" href="#">×</a>
+                                        {{ 'contact.error'|trans({}, "messages")}}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <h3>{{content.title}}</h3>
+                            <div class="padding-as25 lgray-bg">
+                                {% if content.description is defined and content.description is not null and content.description|length %}
+                                    {{ content.description|raw }}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        // $(function() {
+        //     var $form = $('form[name="contacts"]');
+        //     var formValidator = $form.formValidator({
+        //         validCallback: function(el, isValid) {
+        //             if (isValid) {
+        //                 if ($(el).hasClass('g-recaptcha-response')) {
+        //                     $('#captcha_error').remove();
+        //                 }
+        //                 $(el).parent('div.field').removeClass('fieldError');
+        //                 $(el).parent('div.field').addClass('fieldSuccess');
+        //             } else {
+        //                 if ($(el).hasClass('g-recaptcha-response') && !$('#captcha_error').length) {
+        //                     $('#captcha').append('<p id="captcha_error" class="textError">{{ 'fill_captcha'|trans({}, 'messages')}}</p>');
+        //                 }
+        //                 if (!$(el).parent('div.field').hasClass('fieldError')) {
+        //                     $(el).parent('div.field').removeClass('fieldSuccess');
+        //                     $(el).parent('div.field').addClass('fieldError');
+        //                 }
+        //             }
+        //         }
+        //     });
+        //
+        //     $($form.prop('elements')).keyup(formValidator.validateElement);
+        //     $($form.prop('elements')).change(formValidator.validateElement);
+        {#
+            var haveToScroll ={% if app.session.flashbag.has('error') or app.session.flashbag.has('success') %}true
+            {% else %}
+                false{% endif %};
+            if (haveToScroll) {
+                $('html, body').stop(true, true).animate({
+                    scrollTop: $('#formContacts').offset().top
+                }, 1300);
+            };
+        #}
+        //});
+    </script>
+    {% if dealers is defined and dealers is not null and dealers|length %}
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlvoE-NOPnju-y-33J0IWcrmgcWvMz2FI"></script>
+        <script>
+            $(function() {
+                // google map
+                var $map = $('#contact-map');
+                var locations = {};
+
+                locations = {
+                    {% for dealer in dealers %}
+                        "{{loop.index}}":{"latitude":"{{dealer.latitude}}","longitude":"{{dealer.longitude}}", "pinDescription":'{% spaceless %}{{dealer.pinDescription|replace({"'":"\""})|raw}}{% endspaceless %}'}{% if not loop.last %},{% endif %}
+                    {% endfor %}
+                };
+
+                if (countObjectlocations(locations)) {
+                    initMap($map.selector, locations);
+                } else {
+                    $map.hide();
+                }
+            });
+
+            // google map
+            function countObjectlocations (locations) {
+                var count = 0;
+                for (i in locations) {
+                    if (locations.hasOwnProperty(i)) {
+                        count++;
+                    }
+                }
+                return count > 0 ? true : false;
+            }
+
+            function initMap (mapElement, locations) {
+                // get map selector
+                mapElement = mapElement.replace('#', '');
+
+                var customStyles = [];
+                for (first in locations) {
+                    var firstIndex = first;
+                    break;
+                };
+                var mapOptions = {
+                    zoom: 17,
+                    styles: customStyles,
+                    disableDefaultUI: false,
+                    center: new google.maps.LatLng( locations[firstIndex].latitude, locations[firstIndex].longitude ),
+                    panControl: true,
+                    zoomControl: true,
+                    mapTypeControl: true,
+                    scaleControl: true,
+                    streetViewControl: true,
+                    overviewMapControl: true,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                }
+
+                var map = new google.maps.Map(document.getElementById(mapElement), mapOptions);
+
+                var markerBounds = new google.maps.LatLngBounds();
+
+                var infowindow = new google.maps.InfoWindow();
+
+                var marker;
+                for (i in locations) {
+                    // var iconUrl = "images/mapPin.png",
+                    // iconSize = new google.maps.Size(55, 65);
+                    var markerPosition = new google.maps.LatLng(locations[i].latitude, locations[i].longitude);
+                    marker = new google.maps.Marker({
+                        position: markerPosition,
+                        map: map,
+                        animation: google.maps.Animation.DROP,
+                        // icon: {
+                        //     url: iconUrl,
+                        //     scaledSize: iconSize
+                        //     // anchor: new google.maps.Point(23, 64) // pin point position
+                        // }
+                    });
+                    markerBounds.extend(markerPosition);
+
+                    // add infoWindow to each pin
+                    if (locations[i].pinDescription) {
+                        google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                            return function() {
+                                infowindow.setContent('<div class="tooltip">'+locations[i].pinDescription+'</div>');
+                                infowindow.open(map, marker);
+                            }
+                        })(marker, i));
+                    }
+                }
+                {% if dealers|length > 1 %}
+                    // change zoom for multiple pins
+                    map.fitBounds(markerBounds);
+                {% endif %}
+            }
+        </script>
+    {% endif %}
+{% endblock %}

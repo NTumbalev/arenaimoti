@@ -1,0 +1,68 @@
+{% extends '::base.html.twig' %}
+
+{% import '::renderSocials.html.twig' as renderSocials %}
+
+{% block main %}
+    {% include '::headerImage.html.twig' with {'content':content} %}
+
+    <div class="main" role="main">
+        <div id="content" class="content full">
+            <div class="container">
+                <div class="page">
+                    <div class="row">
+                        <div class="col-md-12">
+                            {% if content.description is defined and content.description is not null and content.description|length %}
+                                {{ content.description|raw }}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {#
+    {% include '::breadCrumbs.html.twig' with {'breadCrumbs':breadCrumbs} %}
+
+    <section id="main">
+        {% include '::headerImage.html.twig' with {'content':content} %}
+
+        <div class="mainBody">
+            <div class="wrapper">
+                {% set haveSideBar = false %}
+                {% if sideBar is defined and sideBar is not null and sideBar|length %}
+                    {% set haveSideBar = true %}
+                {% endif %}
+                <div class="mainContent{% if haveSideBar == false %} full{% endif %}">
+                    <h1 class="titleMain">{{ content.title }}</h1>
+
+                    {% if content.description is defined and content.description is not null and content.description|length %}
+                        <article class="article">
+                            {{ content.description|graw }}
+                        </article>
+                    {% endif %}
+
+                    {% if content.shareIcons %}
+                        <div class="shareBar">
+                            <p>{{ 'share'|trans({}, 'messages')}}</p>
+
+                            <div class="socials socialsShare">
+                                {{ renderSocials.renderSocials() }}
+                            </div><!-- /.socials -->
+                        </div><!-- /.shareBar -->
+                    {% endif %}
+                </div><!-- /.mainContent -->
+
+                {% if haveSideBar %}
+                    <aside class="sidebar">
+                        <p class="titleAside">{{ content.parent.title }}</p>
+
+                        <div class="navAside">
+                            {{ sideBar|raw }}
+                        </div><!-- /.navAside -->
+                    </aside><!-- /.sidebar -->
+                {% endif %}
+            </div><!-- /.wrapper -->
+        </div><!-- /.mainBody -->
+    </section>
+    #}
+{% endblock %}

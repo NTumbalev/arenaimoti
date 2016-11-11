@@ -1,0 +1,6 @@
+nt_newsletter: 'Newsletter'
+form:
+  email: Email
+  createdAt: Created at
+  mailChimpStatus: 'MailChimp status'
+actions: 'Actions'

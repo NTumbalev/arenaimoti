@@ -1,0 +1,101 @@
+{% if estates is defined and estates is not null and estates | length %}
+    <div class="main" role="main">
+        <div id="content" class="content full">
+            <div class="spacer-40"></div>
+            <div class="container">
+                {% for arr in estates %}
+                    {% set estateCategory = arr['category'] %}
+                    <div class="row">
+                        <div class="property-columns" id="latest-properties">
+                            <div class="col-md-12">
+                                <div class="block-heading">
+                                    <h4>
+                                        <span class="heading-icon">
+                                            <i class="fa fa-leaf"></i>
+                                        </span>{{estateCategory.title}}
+                                    </h4>
+                                    <a href="{{ path(estateCategory.route, estateCategory.routeParams) }}" class="btn btn-primary btn-sm pull-right">{{ 'view_all'|trans({}, 'messages')}}
+                                        <i class="fa fa-long-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <ul>
+                                {% for estate in arr['estates'] %}
+                                    <li class="col-md-4 col-sm-6 type-rent">
+                                        <div class="property-block">
+                                            <a href="{{ path('estate_without_category', estate.routeParams) }}" class="property-featured-image">
+                                                {% thumbnail estate.translations[app.request.locale].image, 'index' with {'title':estate.title, 'alt':estate.title} %}
+                                                {% if estate.translations[app.request.locale].gallery is defined and estate.translations[app.request.locale].gallery is not null and estate.translations[app.request.locale].gallery|length %}
+                                                    <span class="images-count">
+                                                        <i class="fa fa-picture-o"></i>
+                                                        {{
+                                                        estate.translations[app.request.locale].gallery.galleryHasMedias|length
+                                                        }}
+                                                    </span>
+                                                {% endif %}
+                                                {# <span class="badges">
+                                                    {{ estateCategory.title }}
+                                                </span> #}
+                                            </a>
+                                            <div class="property-info">
+                                                <h4>
+                                                    <a href="{{path('estate_without_category', estate.routeParams)}}">
+                                                        {{estate.title}}
+                                                    </a>
+                                                </h4>
+                                                {% if estate.location is defined and estate.location is not null and estate.location|length %}
+                                                    <span class="location">
+                                                        {{estate.location}}
+                                                    </span>
+                                                {% endif %}
+                                                {% if estate.price is defined and estate.price is not null and estate.price|length %}
+                                                    <div class="price">
+                                                        <span>{{ estate.price }}</span>
+                                                        <strong>
+                                                            {{ estate.currency|trans({}, 'messages')}}
+                                                        </strong>
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                            <div class="property-amenities clearfix">
+                                                {% if estate.area is defined and estate.area is not null and estate.area|length %}
+                                                    <span class="area">
+                                                        <strong>
+                                                            {{estate.area}}
+                                                        </strong>
+                                                        m<sup>2</sup>
+                                                    </span>
+                                                {% endif %}
+
+                                                {% if estate.baths is defined and estate.baths is not null and estate.baths|length %}
+                                                    <span class="baths">
+                                                        <strong>{{estate.baths}}</strong>
+                                                        {{ 'estate.baths'|trans({}, 'messages')}}
+                                                    </span>
+                                                {% endif %}
+
+                                                {% if estate.beds is defined and estate.beds is not null and estate.beds|length %}
+                                                    <span class="beds">
+                                                        <strong>{{ estate.beds }}</strong>
+                                                        {{ 'estate.beds'|trans({}, 'messages')}}
+                                                    </span>
+                                                {% endif %}
+
+                                                {% if estate.parking is defined and estate.parking is not null and estate.parking|length %}
+                                                    <span class="parking">
+                                                        <strong>{{estate.parking}}</strong>
+                                                        {{ 'estate.parking'|trans({}, 'messages')}}
+                                                    </span>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endif %}

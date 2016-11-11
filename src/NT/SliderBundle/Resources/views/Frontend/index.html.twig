@@ -1,0 +1,95 @@
+{% if slides is defined and slides is not null and slides|length %}
+    <div class="hero-slider flexslider clearfix" data-autoplay="yes" data-pagination="no" data-arrows="yes" data-style="fade" data-pause="yes">
+        <ul class="slides">
+            {% for slide in slides %}
+                <li class=" parallax" style="background-image:url({% path slide.translations[app.request.locale].image, 'index' %});"></li>
+            {% endfor %}
+        </ul>
+    </div>
+    {#
+    <script>
+        $(function() {
+            // sliderMain
+            if ($('#sliderMain .swiper-slide').length > 1) {
+                var sliderMain = new Swiper('#sliderMain', {
+                    autoplay: 5000,
+                    speed: 1000,
+                    loop: true,
+                    effect: 'fade',
+                    prevButton: '#sliderPrev',
+                    nextButton: '#sliderNext',
+                    preventClicks: false,
+                    bulletActiveClass: 'selected',
+                    autoplayDisableOnInteraction: false,
+                    keyboardControl: true,
+                    mousewheelControl: false,
+                    grabCursor: false,
+                    spaceBetween: 0
+                });
+
+                // pause on hover
+                $('#sliderMain').on('mouseenter', function() {
+                    sliderMain.stopAutoplay()
+                }).on('mouseleave', function() {
+                    sliderMain.startAutoplay()
+                });
+            } else {
+                $('#sliderPrev, #sliderNext').hide();
+            };
+        });
+    </script>
+    <div class="slider swiper-container" id="sliderMain">
+        <div class="slides swiper-wrapper">
+            {% for slide in slides %}
+                <div class="slide swiper-slide">
+                    <a {% if slide.url is defined and slide.url is not null and slide.url|length %}href="{{ slide.url }}" target="{{ slide.target }}"{% else %}href="javascript:;"{% endif %} style="background-image: url({% path slide.translations[app.request.locale].image, 'index' %});"></a>
+
+                    {% set haveTitle = false %}
+                    {% if slide.title is defined and slide.title is not null and slide.title|length %}
+                        {% set haveTitle = true %}
+                    {% endif %}
+
+                    {% set haveDescription = false %}
+                    {% if slide.description is defined and slide.description is not null and slide.description|length %}
+                        {% set haveDescription = true %}
+                    {% endif %}
+
+                    {% set haveUrl = false %}
+                    {% if slide.url is defined and slide.url is not null and slide.url|length %}
+                        {% set haveUrl = true %}
+                    {% endif %}
+
+                    {% if haveTitle or haveDescription %}
+                        <div class="description">
+                            {% if haveTitle %}
+                                <p class="title">
+                                    <a {% if haveUrl %}href="{{ slide.url }}" target="{{ slide.target }}"{% else %}href="javascript:;"{% endif %}>
+                                        {{ slide.title }}
+                                    </a>
+                                </p>
+                            {% endif %}
+
+                            {% if haveDescription %}
+                                <div class="text">
+                                    {{ slide.description|raw }}
+                                </div>
+                            {% endif %}
+
+                            {% if haveUrl %}
+                                <div class="btns">
+                                    <a {% if haveUrl %}href="{{ slide.url }}" target="{{ slide.target }}"{% else %}href="javascript:;"{% endif %} class="btnSecondary">
+                                        <span>{% if slide.buttonTitle is defined and slide.buttonTitle is not null and slide.buttonTitle|length %}{{ slide.buttonTitle }}{% else %}{{ 'learn_more'|trans({}, 'messages')}}{% endif %}</span><i class="iconArrow"></i>
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="swiper-button-prev" id="sliderPrev"></div>
+        <div class="swiper-button-next" id="sliderNext"></div>
+    </div><!-- /.sliderMain -->
+    #}
+{% endif %}

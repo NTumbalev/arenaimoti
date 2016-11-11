@@ -1,0 +1,27 @@
+{
+    "name": "nt/customBlocks-bundle",
+    "description": "This Symfony bundle provide easy way to create CustomBlocks",
+    "keywords": ["Symfony", "CustomBlocks", "Bundle"],
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Hristo Hristoff",
+            "email": "hristo.hristov@nt.bg"
+        }
+    ],
+    "require": {
+        "nt/core-bundle": "dev-master",
+        "nt/publish-workflow-bundle": "dev-master"
+    },
+    "repositories":[
+        {
+            "type": "vcs",
+            "url": "git@dev.ntgroup.com:symfony-bundles/nt-core-bundle.git"
+        }
+    ],
+    "autoload": {
+        "psr-0": { "NT\\CustomBlocksBundle": "" }
+    },
+    "target-dir": "NT/CustomBlocksBundle"
+}

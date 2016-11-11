@@ -1,0 +1,19 @@
+<div class="widget-recent-posts widget">
+    <h3 class="widgettitle">{{ 'latest_posts'|trans({}, 'messages')}}</h3>
+    <ul>
+        {% for item in posts %}
+            <li class="clearfix">
+                <a href="{{ path('post_without_category', item.routeParams()) }}" class="media-box post-image">
+                    {% if item.translations[app.request.locale].image is defined and item.translations[app.request.locale].image is not null and item.translations[app.request.locale].image|length %}
+                    {% thumbnail item.translations[app.request.locale].image, 'index' with {'title':item.translations[app.request.locale].title, 'alt':item.translations[app.request.locale].title, 'class':'img-thumbnail'} %}
+                    {% endif %}
+                </a>
+                <div class="widget-blog-content">
+                    <a href="{{ path('post_without_category', item.routeParams()) }}">
+                        {{item.title}}
+                    </a>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+</div>

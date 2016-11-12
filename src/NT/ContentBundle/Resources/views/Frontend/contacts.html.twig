@@ -103,17 +103,16 @@
         //
         //     $($form.prop('elements')).keyup(formValidator.validateElement);
         //     $($form.prop('elements')).change(formValidator.validateElement);
-        {#
-            var haveToScroll ={% if app.session.flashbag.has('error') or app.session.flashbag.has('success') %}true
-            {% else %}
-                false{% endif %};
+        //});
+
+        $(function(){
+            var haveToScroll ={% if app.session.flashbag.has('error') or app.session.flashbag.has('success') %}true{% else %}false{% endif %};
             if (haveToScroll) {
                 $('html, body').stop(true, true).animate({
-                    scrollTop: $('#formContacts').offset().top
+                    scrollTop: $('#content').offset().top
                 }, 1300);
             };
-        #}
-        //});
+        });
     </script>
     {% if dealers is defined and dealers is not null and dealers|length %}
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlvoE-NOPnju-y-33J0IWcrmgcWvMz2FI"></script>

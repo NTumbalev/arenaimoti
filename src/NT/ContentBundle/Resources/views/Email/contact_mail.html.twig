@@ -53,7 +53,12 @@
 		</tr>
 	</table>
 	<div style="width: 600px; text-align: center; margin: 0 auto;">
-		<p style="font-size: 13px; font-style: italic; ">{{'message_generated_from'|trans({}, 'messages')}} <a href="{{ app.request.getSchemeAndHttpHost() }}">{{ app.request.getSchemeAndHttpHost() }}</a>, {{'developed_by'|trans({}, 'messages')}} <a href="mailto:ntumbalev@gmail.com?Subject=Запитване за сайт" target="blank">Nikolay Tumbalev</a>.</p>
+		<p style="font-size: 13px; font-style: italic; ">
+			{{'message_generated_from'|trans({}, 'messages')}} <a href="{{ app.request.getSchemeAndHttpHost() }}">{{ app.request.getSchemeAndHttpHost() }}</a>.
+		</p>
+		<p style="font-size: 13px; font-style: italic; ">
+			<a href="mailto:ntumbalev@gmail.com?Subject=Запитване за сайт" target="blank">{{'developed_by'|trans({}, 'messages')}}</a>
+		</p>
 	</div>
 </body>
 </html>

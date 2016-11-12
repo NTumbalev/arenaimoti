@@ -29,7 +29,7 @@ class NewsCategoriesAdmin extends Admin
                     'actions' => array(
                         'edit' => array(),
                         'delete' => array(),
-                        'history' => array('template' => 'NTCoreBundle:Admin:list_action_history.html.twig'),
+                        #'history' => array('template' => 'NTCoreBundle:Admin:list_action_history.html.twig'),
                     ), 'label' => 'actions',
                 ))
             ;

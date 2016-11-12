@@ -24,17 +24,17 @@ class NewsletterAdmin extends Admin
         parent::configureTabMenu($menu, $action, $childAdmin);
 
         if ($action == 'list') {
-            $menu->addChild(
-                'MailChimpSync',
-                array('uri' => $this->generateUrl('mail-chimp-status'))
-            );
+            // $menu->addChild(
+            //     'MailChimpSync',
+            //     array('uri' => $this->generateUrl('mail-chimp-status'))
+            // );
         }
     }
 
     protected function configureRoutes(RouteCollection $collection)
     {
         parent::configureRoutes($collection);
-        $collection->add('mail-chimp-status', 'mail-chimp-status');
+        #$collection->add('mail-chimp-status', 'mail-chimp-status');
         $collection->remove('edit');
         $collection->remove('create');
     }
@@ -59,7 +59,7 @@ class NewsletterAdmin extends Admin
         if (array_key_exists('NTMailChimpBundle', $bundles)) {
             $list
             ->addIdentifier('email', null, array('label' => 'form.email'))
-            ->add('mailChimpStatus', null, array('label' => 'form.mailChimpStatus'))
+            #->add('mailChimpStatus', null, array('label' => 'form.mailChimpStatus'))
             ->add('createdAt', null, array('label' => 'form.createdAt'))
             ->add('_action', 'actions', array(
                 'actions' => array(
@@ -113,5 +113,10 @@ class NewsletterAdmin extends Admin
                 // }
             }
         }
+    }
+
+    public function getExportFields()
+    {
+        return array('email');
     }
 }

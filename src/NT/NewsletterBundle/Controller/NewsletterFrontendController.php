@@ -41,31 +41,31 @@ class NewsletterFrontendController extends Controller
                 );
             }
 
-            try {
-                $mailChimpObject = $em->getRepository('NTMailChimpBundle:MailChimp')->findOneById(1);
-                if ($mailChimpObject != null && $mailChimpObject->getIsActive() == true && $mailChimpObject->getApiKey() != null && $mailChimpObject->getApiKey() != '') {
-                    $mc = new \NT\MailChimpBundle\Services\MailChimp($mailChimpObject->getApiKey());
-                    $status = 'subscribed';
-                    if ($mailChimpObject->getDoubleOptin() == true) {
-                        $status = 'pending';
-                    }
-
-                    if ($newsletter->getMailChimpStatus() == null) {
-                        $createListMember = $mc->getList($mailChimpObject->getListId())->createListMember($email, $status);
-                        $newsletter->setMailChimpStatus($status);
-                    } else {
-                        if ($newsletter->getMailChimpStatus() == 'unsubscribed') {
-                            $editListMember = $mc->getList($mailChimpObject->getListId())->editListMember($email, $status);
-                            $newsletter->setMailChimpStatus($status);
-                        }
-                    }
-                }
-
-                $em->persist($newsletter);
-                $em->flush();
-            } catch (\Exception $e) {
-                $this->sendMail($e->getMessage());
-            }
+            // try {
+            //     $mailChimpObject = $em->getRepository('NTMailChimpBundle:MailChimp')->findOneById(1);
+            //     if ($mailChimpObject != null && $mailChimpObject->getIsActive() == true && $mailChimpObject->getApiKey() != null && $mailChimpObject->getApiKey() != '') {
+            //         $mc = new \NT\MailChimpBundle\Services\MailChimp($mailChimpObject->getApiKey());
+            //         $status = 'subscribed';
+            //         if ($mailChimpObject->getDoubleOptin() == true) {
+            //             $status = 'pending';
+            //         }
+            //
+            //         if ($newsletter->getMailChimpStatus() == null) {
+            //             $createListMember = $mc->getList($mailChimpObject->getListId())->createListMember($email, $status);
+            //             $newsletter->setMailChimpStatus($status);
+            //         } else {
+            //             if ($newsletter->getMailChimpStatus() == 'unsubscribed') {
+            //                 $editListMember = $mc->getList($mailChimpObject->getListId())->editListMember($email, $status);
+            //                 $newsletter->setMailChimpStatus($status);
+            //             }
+            //         }
+            //     }
+            //
+            //     $em->persist($newsletter);
+            //     $em->flush();
+            // } catch (\Exception $e) {
+            //     $this->sendMail($e->getMessage());
+            // }
         } else {
             $response = array(
                 'success' => false,

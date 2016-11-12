@@ -97,14 +97,14 @@ class Dealer implements SeoAwareInterface, PublishWorkflowInterface
      * @Gedmo\Translatable
      * @ORM\Column(name="isContact", type="boolean")
      */
-    protected $isContact;
+    protected $isContact = true;
 
     /**
      * @Gedmo\Versioned
      * @Gedmo\Translatable
      * @ORM\Column(name="not_in_distributors", type="boolean")
      */
-    protected $notInDistributors;
+    protected $notInDistributors = true;
 
     /**
      * @ORM\ManyToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media")

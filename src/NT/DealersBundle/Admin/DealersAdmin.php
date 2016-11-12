@@ -41,7 +41,7 @@ class DealersAdmin extends Admin
                     'actions' => array(
                         'edit' => array(),
                         'delete' => array(),
-                        'history' => array('template' => 'NTCoreBundle:Admin:list_action_history.html.twig'),
+                        #'history' => array('template' => 'NTCoreBundle:Admin:list_action_history.html.twig'),
                     ), 'label' => 'link_actions',
                 ))
             ;
@@ -83,22 +83,22 @@ class DealersAdmin extends Admin
                     'label' =>'form.title',
                     'translation_domain' => 'NTDealersBundle',
                 ),
-                'simpleDescription' => array(
-                    'field_type' => 'textarea',
-                    'label' =>'form.simpleDescription',
-                    'required' => false,
-                    'translation_domain' => 'NTDealersBundle'
-                ),
-                'description' => array(
-                    'field_type' => 'textarea',
-                    'label' =>'form.description',
-                    'attr' => array(
-                        'class' => 'tinymce',
-                        'data-theme' => 'bbcode',
-                    ),
-                    'required' => false,
-                    'translation_domain' => 'NTDealersBundle'
-                ),
+                // 'simpleDescription' => array(
+                //     'field_type' => 'textarea',
+                //     'label' =>'form.simpleDescription',
+                //     'required' => false,
+                //     'translation_domain' => 'NTDealersBundle'
+                // ),
+                // 'description' => array(
+                //     'field_type' => 'textarea',
+                //     'label' =>'form.description',
+                //     'attr' => array(
+                //         'class' => 'tinymce',
+                //         'data-theme' => 'bbcode',
+                //     ),
+                //     'required' => false,
+                //     'translation_domain' => 'NTDealersBundle'
+                // ),
                 'pinDescription' => array(
                     'field_type' => 'textarea',
                     'label' =>'form.pin_description',
@@ -118,17 +118,18 @@ class DealersAdmin extends Admin
                     'class' => $imageAdmin->getClass(),
                     'translation_domain' => 'NTDealersBundle',
                 ),
-                'isContact' => array(
-                    'label' =>'form.isContact',
-                    'translation_domain' => 'NTDealersBundle',
-                    'required' => false,
+                // 'isContact' => array(
+                //     'label' =>'form.isContact',
+                //     'translation_domain' => 'NTDealersBundle',
+                //     'required' => false,
+                // ),
+                // 'notInDistributors' => array(
+                //     'label' =>'form.isDistributor',
+                //     'translation_domain' => 'NTDealersBundle',
+                //     'required' => false,
+                // )
                 ),
-                'notInDistributors' => array(
-                    'label' =>'form.isDistributor',
-                    'translation_domain' => 'NTDealersBundle',
-                    'required' => false,
-                )
-                ),
+                'exclude_fields' => array('simpleDescription', 'description', 'isContact', 'notInDistributors'),
                 'label' => 'form.translations',
                 'translation_domain' => 'NTDealersBundle'
         );

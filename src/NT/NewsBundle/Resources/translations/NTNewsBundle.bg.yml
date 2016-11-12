@@ -37,7 +37,7 @@ form:
     is_hidden: Скрит
     general: Основни
     createdAt: 'Създанен на'
-    isHomepage: 'На начална страница'
+    isHomepage: 'Във футъра'
     isTop: 'Топ новина'
     showSocialIcons: 'Покажи социалните икони'
     isActive: 'Активен?'

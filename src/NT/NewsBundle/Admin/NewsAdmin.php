@@ -192,7 +192,7 @@ class NewsAdmin extends Admin
                     'label' => 'form.isTop',
                     'required' => false
                 ))
-                ->add('shareIcons', null, array('label' => 'form.showSocialIcons'))
+                #->add('shareIcons', null, array('label' => 'form.showSocialIcons'))
             ->end()
         ->end()
         ->with('SEO', array('tab' => true))

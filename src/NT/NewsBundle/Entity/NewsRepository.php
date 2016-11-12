@@ -109,6 +109,7 @@ class NewsRepository extends EntityRepository
             }
         $qb
             ->setParameter('locale', $locale)
+            ->addOrderBy('c.isTop', 'DESC')
             ->orderBy('c.publishedDate', 'DESC')
             ->setFirstResult($pageSize * ($page-1))
             ->setMaxResults($pageSize);

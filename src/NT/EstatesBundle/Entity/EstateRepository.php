@@ -112,6 +112,7 @@ class EstateRepository extends EntityRepository
             ->leftJoin('c.translations', 't')
             ->leftJoin('c.estateCategories', 'cat')
             ->andWhere('t.locale = :locale')
+            ->andWhere('c.type = :sell')
             ->andWhere('t.slug IS NOT NULL');
             if ($estateCategoryId != null) {
                 $qb
@@ -120,6 +121,40 @@ class EstateRepository extends EntityRepository
                 ;
             }
         $qb
+            ->setParameter('sell', 'sell')
+            ->setParameter('locale', $locale)
+            ->orderBy('c.rank', 'ASC')
+            ->setFirstResult($pageSize * ($page-1))
+            ->setMaxResults($pageSize);
+
+        return $qb->getQuery();
+    }
+
+    /**
+     * Query for estates listing
+     * @var estateCategoryId integer
+     * @var locale string
+     * @var limit integer
+     * @var offset integer
+     * @return array
+     */
+    public function getRentListingQuery($estateCategoryId, $locale, $page, $pageSize)
+    {
+        $qb = $this->getPublishWorkFlowQueryBuilder(null);
+        $qb
+            ->leftJoin('c.translations', 't')
+            ->leftJoin('c.estateCategories', 'cat')
+            ->andWhere('t.locale = :locale')
+            ->andWhere('c.type = :rent')
+            ->andWhere('t.slug IS NOT NULL');
+            if ($estateCategoryId != null) {
+                $qb
+                ->andWhere('cat.id = :estateCategoryId')
+                ->setParameter('estateCategoryId', $estateCategoryId)
+                ;
+            }
+        $qb
+            ->setParameter('rent', 'rent')
             ->setParameter('locale', $locale)
             ->orderBy('c.rank', 'ASC')
             ->setFirstResult($pageSize * ($page-1))

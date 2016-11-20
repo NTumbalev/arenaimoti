@@ -25,6 +25,34 @@ class EstatesFrontendController extends Controller
     protected $itemsCategoriesRepo       = 'NTEstatesBundle:EstateCategory';
 
     /**
+     * @Route("/estate/rent/{page}", name="estates_rent", requirements={"page": "\d+"})
+     * @Template("NTEstatesBundle:Frontend:estates_list.html.twig")
+     */
+    public function estatesRentAction(Request $request, $page = 1)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $locale = $request->getLocale();
+        $estatesRepo = $em->getRepository($this->itemsRepo);
+
+        $query = $estatesRepo->getRentListingQuery(null, $locale, $page, $this->estatesCategoriesPerPage);
+        $estates = new Paginator($query, true);
+
+        $content = $em->getRepository("NTContentBundle:Content")->findOneById(21);
+        if (!$content) {
+            throw $this->createNotFoundException("rent page not found");
+        }
+
+        $this->generateSeoAndOgTags($content);
+
+        return array(
+            'content'            => $content,
+            'estates'  => $estates,
+            'breadCrumbs'        => $this->generateBreadCrumbs($request),
+            'sideBar'            => $this->getSideBar($request),
+        );
+    }
+
+    /**
      * @Template("NTEstatesBundle:Frontend:homepageEstates.html.twig")
      */
     public function homepageEstatesAction(Request $request)

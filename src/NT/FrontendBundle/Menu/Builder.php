@@ -109,22 +109,22 @@ class Builder extends ContainerAware
                             if ($uri == '/'.$locale.'/news' && $obj) {
                                 $subMenu->setCurrent(true);
                             }
-                        } elseif ($this->container->get('request')->get('route') == 'product') {
+                        } elseif ($this->container->get('request')->get('route') == 'estate') {
                             $slug = $this->container->get('request')->get('route_params')['slug'];
-                            $repository = $em->getRepository('NTProductsBundle:Product');
+                            $repository = $em->getRepository('NTEstatesBundle:Estate');
                             $obj = $repository->findOneBySlugAndLocale($slug, $locale);
 
                             $uri = $itm->getUrl();
-                            if ($uri == '/'.$locale.'/products' && $obj) {
+                            if ($uri == '/'.$locale.'/estates' && $obj) {
                                 $subMenu->setCurrent(true);
                             }
-                        } elseif ($this->container->get('request')->get('route') == 'product_category') {
+                        } elseif ($this->container->get('request')->get('route') == 'estate_category') {
                             $slug = $this->container->get('request')->get('route_params')['slug'];
-                            $repository = $em->getRepository('NTProductsBundle:ProductCategory');
+                            $repository = $em->getRepository('NTEstatesBundle:EstateCategory');
                             $obj = $repository->findOneBySlugAndLocale($slug, $locale);
 
                             $uri = $itm->getUrl();
-                            if ($uri == '/'.$locale.'/products' && $obj) {
+                            if ($uri == '/'.$locale.'/estates' && $obj) {
                                 $subMenu->setCurrent(true);
                             }
                         } elseif ($this->container->get('request')->get('route') == 'service') {
@@ -172,9 +172,9 @@ class Builder extends ContainerAware
                                 $subMenu->setCurrent(true);
                             }
                         }elseif ($this->container->get('request')->get('route') == 'post_without_category') {
-                            
-			    $slug = $this->container->get('request')->get('route_params')['slug'];
-			    $repository = $em->getRepository('NTNewsBundle:News');
+
+            			    $slug = $this->container->get('request')->get('route_params')['slug'];
+            			    $repository = $em->getRepository('NTNewsBundle:News');
                             $obj = $repository->findOneBySlugAndLocale($slug, $locale);
                             $uri = $itm->getUrl();
                             if ($uri == '/'.$locale.'/posts' && $obj) {

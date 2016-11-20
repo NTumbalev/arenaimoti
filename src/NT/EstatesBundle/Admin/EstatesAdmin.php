@@ -38,7 +38,7 @@ class EstatesAdmin extends Admin
     protected $types = array(
         'sell' => 'Продажба',
         'rent' => 'Наем',
-        'buy' => 'Покупка'
+        //'buy' => 'Покупка'
     );
 
     /**

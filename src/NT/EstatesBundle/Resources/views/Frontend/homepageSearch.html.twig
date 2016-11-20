@@ -20,9 +20,11 @@
                     <option{% if params['type'] == 'rent' %} selected{% endif %} value="rent">
                         {{ 'estate.rent'|trans({}, 'messages')}}
                     </option>
+                    {#
                     <option{% if params['type'] == 'buy' %} selected{% endif %} value="buy">
                         {{ 'estate.buy'|trans({}, 'messages')}}
                     </option>
+                    #}
                 </select>
             </div>
             <div class="col-md-3">

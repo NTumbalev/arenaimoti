@@ -9,7 +9,13 @@
     <div class="site-showcase">
         <div class="slider-mask overlay-transparent"></div>
 
-        {{render(controller('NTEstatesBundle:EstatesFrontend:homepageSearch'))}}
+        <div class="site-search-module">
+            <div class="container">
+                <div class="site-search-module-inside">
+                    {{render(controller('NTEstatesBundle:EstatesFrontend:homepageSearch'))}}
+                </div>
+            </div>
+        </div>
     </div>
 
     {{render(controller('NTEstatesBundle:EstatesFrontend:homepageEstates'))}}
@@ -20,20 +26,22 @@
     <script type="text/javascript">
         $(function(){
             $('#ads-trigger').click(function () {
+                var additionalRow = $('.row.additional');
             	if ($(this).hasClass('advanced')) {
-            		$(this).removeClass('advanced');
+                    additionalRow.addClass('hidden');
+                    $(this).removeClass('advanced');
             		$(".site-search-module").animate({
             			'bottom': '-107px'
             		});
-            		$(this).html('<i class="fa fa-plus"></i> {{ 'product.advanced'|trans({}, 'messages')}}');
+            		$(this).html('<i class="fa fa-plus"></i> {{ 'estate.advanced'|trans({}, 'messages')}}');
             		$('.slider-mask').fadeOut(500);
             	} else {
-
+                    additionalRow.removeClass('hidden');
             		$(this).addClass('advanced');
             		$(".site-search-module").animate({
             			'bottom': '-15px'
             		});
-            		$(this).html('<i class="fa fa-minus"></i> {{ 'product.basic'|trans({}, 'messages')}}');
+            		$(this).html('<i class="fa fa-minus"></i> {{ 'estate.basic'|trans({}, 'messages')}}');
             		$('.slider-mask').fadeIn(500);
             	}
             	return false;

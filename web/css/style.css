@@ -3243,3 +3243,8 @@ li.selectedLang a {
 	color: #f55a4e;
 	background-color: #fff;
 }
+
+.searchParams {
+	padding-top: 25px;
+	background-color: #f8f8f8;
+}

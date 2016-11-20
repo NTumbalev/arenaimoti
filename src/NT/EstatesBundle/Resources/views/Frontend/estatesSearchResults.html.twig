@@ -2,8 +2,42 @@
 
 {% import "::paginatorWithRouteAndSlug.html.twig" as pager %}
 
+{% block javascripts %}
+    {{parent()}}
+    <script type="text/javascript">
+        $(function(){
+            $('#ads-trigger').click(function () {
+                var additionalRow = $('.row.additional');
+                if (additionalRow.hasClass('hidden')) {
+                    additionalRow.removeClass('hidden');
+                    $(this).html('<i class="fa fa-plus"></i> {{ 'estate.advanced'|trans({}, 'messages')}}');
+                } else {
+                    additionalRow.addClass('hidden');
+                    $(this).html('<i class="fa fa-minus"></i> {{ 'estate.basic'|trans({}, 'messages')}}');
+                }
+                return false;
+            });
+        });
+    </script>
+{% endblock %}
+
 {% block main %}
-    {% include '::headerImage.html.twig' with {'content': content} %}
+    <div class="site-showcase">
+        <div class="parallax page-header"{% if content.translations[app.request.locale].headerImage is defined and content.translations[app.request.locale].headerImage is not null and content.translations[app.request.locale].headerImage|length %} style="background-image:url({% path content.translations[app.request.locale].headerImage, 'reference' %});"{% endif %}>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1>{{content.title}}</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="searchParams">
+                {{render(controller('NTEstatesBundle:EstatesFrontend:homepageSearch', {'params':params}))}}
+            </div>
+        </div>
+    </div>
 
     <div class="main" role="main">
         <div id="content" class="content full">
@@ -22,6 +56,9 @@
                                     <i class="fa fa-th-list"></i>
                                 </a>
                             </div> #}
+                        </div>
+                        <div class="">
+
                         </div>
                         <div class="property-listing">
                             {% if estates is defined and estates is not null and estates|length %}

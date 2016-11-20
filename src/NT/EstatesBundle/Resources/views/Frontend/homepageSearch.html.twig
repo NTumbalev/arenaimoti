@@ -1,76 +1,78 @@
-<div class="site-search-module">
-    <div class="container">
-        <div class="site-search-module-inside">
-            <form action="{{ path('estates_search_results', {'page':1}) }}" method="get">
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <select name="category" class="form-control input-lg selectpicker">
-                                <option value="" selected>{{ 'estate.categories'|trans({}, 'messages')}}</option>
-                                {% for category in categories %}
-                                    <option value="{{category.id}}">{{ category.title }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="col-md-3">
-                            <select name="type" class="form-control input-lg selectpicker">
-                                <option value="" selected>{{ 'estate.type'|trans({}, 'messages')}}</option>
-                                <option value="sell">{{ 'estate.sell'|trans({}, 'messages')}}</option>
-                                <option value="rent">{{ 'estate.rent'|trans({}, 'messages')}}</option>
-                                <option value="buy">{{ 'estate.buy'|trans({}, 'messages')}}</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3">
-                            <select name="location" class="form-control input-lg selectpicker">
-                                <option value="" selected>{{ 'estate.location'|trans({}, 'messages')}}</option>
-                                {% if locations is defined and locations is not null and locations|length %}
-                                    {% for location in locations %}
-                                        <option value="{{location.id}}">{{location.title}}</option>
-                                    {% endfor %}
-                                {% endif %}
-                            </select>
-                        </div>
-                        <div class="col-md-2">
-                            <button type="submit" class="btn btn-primary btn-block btn-lg">
-                                <i class="fa fa-search"></i>
-                                {{ 'estate.search_btn'|trans({}, 'messages')}}
-                            </button>
-                        </div>
-                        <div class="col-md-2">
-                            <a href="#" id="ads-trigger" class="btn btn-default btn-block">
-                                <i class="fa fa-plus"></i>
-                                <span>{{ 'estate.advanced'|trans({}, 'messages')}}</span>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="row hidden-xs hidden-sm">
-                        <div class="col-md-2">
-                            <label>{{ 'estate.min_beds'|trans({}, 'messages')}}</label>
-                            <input min="0" name="min_beds" type="number" class="form-control input-lg" placeholder="{{ 'estate.empty'|trans({}, 'messages')}}">
-                        </div>
-                        <div class="col-md-2">
-                            <label>{{ 'estate.max_beds'|trans({}, 'messages')}}</label>
-                            <input min="0" name="max_beds" type="number" class="form-control input-lg" placeholder="{{ 'estate.empty'|trans({}, 'messages')}}">
-                        </div>
-                        <div class="col-md-2">
-                            <label>{{ 'estate.min_price'|trans({}, 'messages')}}</label>
-                            <input min="0" name="min_price" type="number" class="form-control input-lg" placeholder="{{ 'estate.empty'|trans({}, 'messages')}}">
-                        </div>
-                        <div class="col-md-2">
-                            <label>{{ 'estate.max_price'|trans({}, 'messages')}}</label>
-                            <input min="0" name="max_price" type="number" class="form-control input-lg" placeholder="{{ 'estate.empty'|trans({}, 'messages')}}">
-                        </div>
-                        <div class="col-md-2">
-                            <label>{{ 'estate.min_area'|trans({}, 'messages')}}</label>
-                            <input min="0" name="min_area" type="number" class="form-control input-lg" placeholder="{{ 'estate.empty'|trans({}, 'messages')}}">
-                        </div>
-                        <div class="col-md-2">
-                            <label>{{ 'estate.max_area'|trans({}, 'messages')}}</label>
-                            <input min="0" name="max_area" type="number" class="form-control input-lg" placeholder="{{ 'estate.empty'|trans({}, 'messages')}}">
-                        </div>
-                    </div>
-                </div>
-            </form>
+<form action="{{ path('estates_search_results', {'page':1}) }}" method="get">
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-2">
+                <select name="category" class="form-control input-lg selectpicker">
+                    <option value="" selected>{{ 'estate.categories'|trans({}, 'messages')}}</option>
+                    {% for category in categories %}
+                        <option {% if params['category'] == category.id %}selected {% endif %}value="{{category.id}}">
+                            {{ category.title }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-3">
+                <select name="type" class="form-control input-lg selectpicker">
+                    <option value="" selected>{{ 'estate.type'|trans({}, 'messages')}}</option>
+                    <option{% if params['type'] == 'sell' %} selected{% endif %} value="sell">
+                        {{ 'estate.sell'|trans({}, 'messages')}}
+                    </option>
+                    <option{% if params['type'] == 'rent' %} selected{% endif %} value="rent">
+                        {{ 'estate.rent'|trans({}, 'messages')}}
+                    </option>
+                    <option{% if params['type'] == 'buy' %} selected{% endif %} value="buy">
+                        {{ 'estate.buy'|trans({}, 'messages')}}
+                    </option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <select name="location" class="form-control input-lg selectpicker">
+                    <option value="" selected>{{ 'estate.location'|trans({}, 'messages')}}</option>
+                    {% if locations is defined and locations is not null and locations | length %}
+                        {% for location in locations %}
+                            <option{% if params['location'] == location.id %} selected{% endif %} value="{{location.id}}">{{location.title}}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary btn-block btn-lg">
+                    <i class="fa fa-search"></i>
+                    {{ 'estate.search_btn'|trans({}, 'messages')}}
+                </button>
+            </div>
+            <div class="col-md-2">
+                <a href="#" id="ads-trigger" class="btn btn-default btn-block">
+                    <i class="fa fa-plus"></i>
+                    <span>{{ 'estate.advanced'|trans({}, 'messages')}}</span>
+                </a>
+            </div>
+        </div>
+        <div class="row hidden additional">
+            <div class="col-md-2">
+                <label>{{ 'estate.min_beds'|trans({}, 'messages')}}</label>
+                <input{% if params['min_beds'] > 0 %} value="{{params['min_beds']}}"{% endif %} min="0" name="min_beds" type="number" class="form-control input-lg" placeholder="{{ 'estate.empty'|trans({}, 'messages')}}">
+            </div>
+            <div class="col-md-2">
+                <label>{{ 'estate.max_beds'|trans({}, 'messages')}}</label>
+                <input{% if params['max_beds'] > 0 %} value="{{params['max_beds']}}"{% endif %} min="0" name="max_beds" type="number" class="form-control input-lg" placeholder="{{ 'estate.empty'|trans({}, 'messages')}}">
+            </div>
+            <div class="col-md-2">
+                <label>{{ 'estate.min_price'|trans({}, 'messages')}}</label>
+                <input{% if params['min_price'] > 0 %} value="{{params['min_price']}}"{% endif %} min="0" name="min_price" type="number" class="form-control input-lg" placeholder="{{ 'estate.empty'|trans({}, 'messages')}}">
+            </div>
+            <div class="col-md-2">
+                <label>{{ 'estate.max_price'|trans({}, 'messages')}}</label>
+                <input{% if params['max_price'] > 0 %} value="{{params['max_price']}}"{% endif %} min="0" name="max_price" type="number" class="form-control input-lg" placeholder="{{ 'estate.empty'|trans({}, 'messages')}}">
+            </div>
+            <div class="col-md-2">
+                <label>{{ 'estate.min_area'|trans({}, 'messages')}}</label>
+                <input{% if params['min_area'] > 0 %} value="{{params['min_area']}}"{% endif %} min="0" name="min_area" type="number" class="form-control input-lg" placeholder="{{ 'estate.empty'|trans({}, 'messages')}}">
+            </div>
+            <div class="col-md-2">
+                <label>{{ 'estate.max_area'|trans({}, 'messages')}}</label>
+                <input{% if params['max_area'] > 0 %} value="{{params['max_area']}}"{% endif %} min="0" name="max_area" type="number" class="form-control input-lg" placeholder="{{ 'estate.empty'|trans({}, 'messages')}}">
+            </div>
         </div>
     </div>
-</div>
+</form>

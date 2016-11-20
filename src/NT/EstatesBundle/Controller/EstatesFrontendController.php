@@ -53,7 +53,7 @@ class EstatesFrontendController extends Controller
      * Route("/search", name="estate_search")
      * @Template("NTEstatesBundle:Frontend:homepageSearch.html.twig")
      */
-    public function homepageSearchAction(Request $request)
+    public function homepageSearchAction(Request $request, $params = null)
     {
         $em = $this->getDoctrine()->getManager();
         $locale = $request->getLocale();
@@ -62,9 +62,22 @@ class EstatesFrontendController extends Controller
 
         $locations = $em->getRepository('NTEstatesBundle:Location')->findAllByLocale($locale);
 
+        $allParams = array(
+            "category" => isset($params['category']) ? $params['category'] : '',
+            "type" => isset($params['type']) ? $params['type'] : '',
+            "location" => isset($params['location']) ? $params['location'] : '',
+            "min_beds" => isset($params['min_beds']) ? $params['min_beds'] : '',
+            "max_beds" => isset($params['max_beds']) ? $params['max_beds'] : '',
+            "min_price" => isset($params['min_price']) ? $params['min_price'] : '',
+            "max_price" => isset($params['max_price']) ? $params['max_price'] : '',
+            "min_area" => isset($params['min_area']) ? $params['min_area'] : '',
+            "max_area" => isset($params['max_area']) ? $params['max_area'] : '',
+        );
+
         return array(
             'categories' => $categories,
-            'locations' => $locations
+            'locations' => $locations,
+            'params' => $allParams
         );
     }
 
@@ -270,7 +283,8 @@ class EstatesFrontendController extends Controller
 
         return array(
             'content' => $content,
-            'estates' => $estates
+            'estates' => $estates,
+            'params' => $request->query->all()
         );
     }
 

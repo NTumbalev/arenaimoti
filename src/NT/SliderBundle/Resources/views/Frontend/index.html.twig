@@ -1,8 +1,12 @@
 {% if slides is defined and slides is not null and slides|length %}
-    <div class="hero-slider flexslider clearfix" data-autoplay="yes" data-pagination="no" data-arrows="yes" data-style="fade" data-pause="yes">
+    <div class="hero-slider flexslider clearfix" data-autoplay="yes" data-pagination="no" data-arrows="yes" data-style="slide" data-pause="yes">
         <ul class="slides">
             {% for slide in slides %}
-                <li class=" parallax" style="background-image:url({% path slide.translations[app.request.locale].image, 'index' %});"></li>
+                <li class=" parallax" style="background-image:url({% path slide.translations[app.request.locale].image, 'index' %});">
+                    {% if slide.url is defined and slide.url is not null and slide.url|length %}
+                        <a href="{{slide.url}}" target="{{slide.target}}" title="{{slide.alt}}" alt="{{slide.alt}}" class="anchorFiller">test</a>
+                    {% endif %}
+                </li>
             {% endfor %}
         </ul>
     </div>

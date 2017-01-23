@@ -4,7 +4,7 @@
             {% for slide in slides %}
                 <li class=" parallax" style="background-image:url({% path slide.translations[app.request.locale].image, 'index' %});">
                     {% if slide.url is defined and slide.url is not null and slide.url|length %}
-                        <a href="{{slide.url}}" target="{{slide.target}}" title="{{slide.alt}}" alt="{{slide.alt}}" class="anchorFiller">test</a>
+                        <a href="{{slide.url}}" target="{{slide.target}}" title="{{slide.alt}}" alt="{{slide.alt}}" class="liFiller">test</a>
                     {% endif %}
                 </li>
             {% endfor %}

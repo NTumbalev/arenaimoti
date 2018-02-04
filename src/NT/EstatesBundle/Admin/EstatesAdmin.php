@@ -118,6 +118,7 @@ class EstatesAdmin extends Admin
     {
         $datagridMapper
             ->add('title', null, array('label' => 'form.title'))
+            ->add('number', null, array('label' => 'form.number'))
             ->add('estateCategories', null, array('label' => 'Категории'));
         ;
     }
@@ -129,6 +130,7 @@ class EstatesAdmin extends Admin
     {
         $list
             ->addIdentifier('title', null, array('label' => 'list.title'))
+            ->add('number', null, array('label' => 'form.number'))
             ->add('isHomepage', null, array('label' => 'form.isHomepage', 'editable' => true))
             ->add('estateCategories', null, array('label' => 'form.categories'))
             ->add('publishWorkflow.isActive', null, array('label' => 'list.isActive', 'editable' => true))
@@ -158,6 +160,10 @@ class EstatesAdmin extends Admin
 
         $formMapper
             ->with('tab.general', array('tab' => true))
+                ->add('number', null, array(
+                    'label' => 'form.number',
+                    'required' => true
+                ))
                 ->add('type', 'choice', array(
                     'label' => 'form.type',
                     'required' => true,
@@ -183,10 +189,6 @@ class EstatesAdmin extends Admin
                     'label' => 'form.longitude',
                     'required' => false
                 ))
-                // ->add('referenceNo', null, array(
-                //     'label' => 'form.referenceNo',
-                //     'required' => false
-                // ))
                 //->add('shareIcons', null, array('label' => 'form.showSocialIcons'))
                 ->add('translations', 'a2lix_translations', array(
                     'fields' => array(

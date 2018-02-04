@@ -237,6 +237,13 @@ class EstateRepository extends EntityRepository
             ->setMaxResults($pageSize);
         ;
 
+        if (array_key_exists('number', $params) && !empty($params['number']) && is_numeric($params['number'])) {
+            $qb
+                ->andWhere('c.number = :number')
+                ->setParameter('number', $params['number'])
+            ;
+        }
+
         if (array_key_exists('category', $params) && !empty($params['category']) && is_numeric($params['category'])) {
             $qb
                 ->leftJoin('c.estateCategories', 'cat')

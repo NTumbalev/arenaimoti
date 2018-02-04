@@ -1333,7 +1333,7 @@ html[xmlns] .slides {
 }
 .noSymbol {
 	display:inline-block;
-	background:rgb(102,102,102, 0.9);
+	background: #666;
 	color:#fff;
 	-webkit-border-radius:3px;
 	-moz-border-radius:3px;
@@ -1345,7 +1345,8 @@ html[xmlns] .slides {
 	line-height:10px;
 	height:23px;
 	font-weight:700;
-	font-size: 12px;	
+	font-size: 12px;
+	opacity: 0.9;	
 }
 #latest-properties .property-block{
 	margin-bottom:40px;

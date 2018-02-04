@@ -28,6 +28,7 @@ estate:
     max_price: 'Максимална цена'
     min_area: 'Минимум кв.м.'
     max_area: 'Максимум кв.м.'
+    no_results: 'Няма намерени резултати.'
 view_all: 'Виж всички'
 facebook_footer: 'Facebook page'
 required_field: 'Полето е задължително'

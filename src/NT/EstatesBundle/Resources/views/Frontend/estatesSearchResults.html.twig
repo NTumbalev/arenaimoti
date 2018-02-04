@@ -143,6 +143,8 @@
                                         </li>
                                     {% endfor %}
                                 </ul>
+                            {% else %}
+                                {{ 'estate.no_results'|trans({}, 'messages')}}
                             {% endif %}
                         </div>
 

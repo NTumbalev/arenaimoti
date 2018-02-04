@@ -16,6 +16,7 @@
                     <div class="col-md-8">
                         <div class="single-property">
                             <h2 class="page-title">
+                                <span class="noSymbol">№</span><span class="number">{{ estate.number }}</span>
                                 {{estate.title}}
                                 {% if estate.location is defined and estate.location is not null and estate.location | length %},
                                     <span class="location">{{estate.location}}</span>

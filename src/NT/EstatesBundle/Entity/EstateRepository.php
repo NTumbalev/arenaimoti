@@ -123,7 +123,7 @@ class EstateRepository extends EntityRepository
         $qb
             ->setParameter('sell', 'sell')
             ->setParameter('locale', $locale)
-            ->orderBy('c.rank', 'ASC')
+            ->orderBy('c.createdAt', 'DESC')
             ->setFirstResult($pageSize * ($page-1))
             ->setMaxResults($pageSize);
 
@@ -236,6 +236,13 @@ class EstateRepository extends EntityRepository
             ->setFirstResult($pageSize * ($page-1))
             ->setMaxResults($pageSize);
         ;
+
+        if (array_key_exists('number', $params) && !empty($params['number']) && is_numeric($params['number'])) {
+            $qb
+                ->andWhere('c.number = :number')
+                ->setParameter('number', $params['number'])
+            ;
+        }
 
         if (array_key_exists('category', $params) && !empty($params['category']) && is_numeric($params['category'])) {
             $qb

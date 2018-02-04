@@ -13,6 +13,7 @@ estate:
     beds: 'Спални'
     baths: 'Бани'
     parking: 'Паркинги'
+    number: 'Номер на имота'
     categories: 'Категории'
     location: 'Локация'
     empty: 'Изберете'

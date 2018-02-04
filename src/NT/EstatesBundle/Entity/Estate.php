@@ -46,6 +46,12 @@ class Estate implements PublishWorkflowInterface, SeoAwareInterface
 
     /**
      * @var string
+     * @ORM\Column(name="number", type="string")
+     */
+    protected $number;
+
+    /**
+     * @var string
      * @Gedmo\Versioned
      * @Gedmo\Translatable
      * @ORM\Column(name="slug", type="string", length=255, nullable=true)
@@ -821,4 +827,23 @@ class Estate implements PublishWorkflowInterface, SeoAwareInterface
         return $this;
     }
 
+    /**
+     * @return string
+     */
+    public function getNumber()
+    {
+        return $this->number;
+    }
+
+    /**
+     * @param string $number
+     *
+     * @return self
+     */
+    public function setNumber($number)
+    {
+        $this->number = $number;
+
+        return $this;
+    }
 }

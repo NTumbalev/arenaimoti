@@ -91,6 +91,7 @@ class EstatesFrontendController extends Controller
         $locations = $em->getRepository('NTEstatesBundle:Location')->findAllByLocale($locale);
 
         $allParams = array(
+            "number" => isset($params['number']) ? $params['number'] : '',
             "category" => isset($params['category']) ? $params['category'] : '',
             "type" => isset($params['type']) ? $params['type'] : '',
             "location" => isset($params['location']) ? $params['location'] : '',

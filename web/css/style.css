@@ -1291,7 +1291,7 @@ html[xmlns] .slides {
 }
 .price, .counts{
 	display:inline-block;
-	background:#666;
+	background:#f55a4e;
 	color:#fff;
 	-webkit-border-radius:3px;
 	-moz-border-radius:3px;
@@ -1314,6 +1314,38 @@ html[xmlns] .slides {
 	line-height:30px;
 	height:30px;
 	font-weight:700;
+}
+.number {
+	display:inline-block;
+	background:#666;
+	color:#fff;
+	-webkit-border-radius:3px;
+	-moz-border-radius:3px;
+	border-radius:3px;
+	-webkit-border-radius:0 3px 3px 0;
+	-moz-border-radius:0 3px 3px 0;
+	border-radius:0 3px 3px 0;
+	padding:7px 7px 7px 0;
+	line-height:10px;
+	height:23px;
+	font-weight:700;
+	font-size: 12px;
+}
+.noSymbol {
+	display:inline-block;
+	background:rgb(102,102,102, 0.9);
+	color:#fff;
+	-webkit-border-radius:3px;
+	-moz-border-radius:3px;
+	border-radius:3px;
+	-webkit-border-radius:3px 0 0 3px;
+	-moz-border-radius:3px 0 0 3px;
+	border-radius:3px 0 0 3px;
+	padding:7px 0 7px 7px;
+	line-height:10px;
+	height:23px;
+	font-weight:700;
+	font-size: 12px;	
 }
 #latest-properties .property-block{
 	margin-bottom:40px;

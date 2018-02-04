@@ -6,6 +6,7 @@ nt_locations: 'Локации'
 form:
     translations: 'Преводи'
     slug: 'Слъг'
+    number: 'Номер на имота'
     title: 'Заглавие'
     image: 'Изображение в листинга'
     gallery: 'Галерия'

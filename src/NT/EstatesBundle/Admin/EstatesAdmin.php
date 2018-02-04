@@ -31,8 +31,8 @@ class EstatesAdmin extends Admin
      */
     protected $datagridValues = array(
         '_page' => 1,
-        '_sort_order' => 'ASC',
-        '_sort_by' => 'rank',
+        '_sort_order' => 'DESC',
+        '_sort_by' => 'createdAt',
     );
 
     protected $types = array(
@@ -117,6 +117,7 @@ class EstatesAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
+            ->add('number', null, array('label' => 'form.number'))
             ->add('title', null, array('label' => 'form.title'))
             ->add('estateCategories', null, array('label' => 'Категории'));
         ;
@@ -128,6 +129,7 @@ class EstatesAdmin extends Admin
     protected function configureListFields(ListMapper $list)
     {
         $list
+            ->addIdentifier('number', null, array('label' => 'form.number'))
             ->addIdentifier('title', null, array('label' => 'list.title'))
             ->add('isHomepage', null, array('label' => 'form.isHomepage', 'editable' => true))
             ->add('estateCategories', null, array('label' => 'form.categories'))
@@ -158,6 +160,10 @@ class EstatesAdmin extends Admin
 
         $formMapper
             ->with('tab.general', array('tab' => true))
+                ->add('number', null, array(
+                    'label' => 'form.number',
+                    'required' => true
+                ))
                 ->add('type', 'choice', array(
                     'label' => 'form.type',
                     'required' => true,
@@ -183,10 +189,6 @@ class EstatesAdmin extends Admin
                     'label' => 'form.longitude',
                     'required' => false
                 ))
-                // ->add('referenceNo', null, array(
-                //     'label' => 'form.referenceNo',
-                //     'required' => false
-                // ))
                 //->add('shareIcons', null, array('label' => 'form.showSocialIcons'))
                 ->add('translations', 'a2lix_translations', array(
                     'fields' => array(

@@ -31,8 +31,8 @@ class EstatesAdmin extends Admin
      */
     protected $datagridValues = array(
         '_page' => 1,
-        '_sort_order' => 'ASC',
-        '_sort_by' => 'rank',
+        '_sort_order' => 'DESC',
+        '_sort_by' => 'createdAt',
     );
 
     protected $types = array(
@@ -117,8 +117,8 @@ class EstatesAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('title', null, array('label' => 'form.title'))
             ->add('number', null, array('label' => 'form.number'))
+            ->add('title', null, array('label' => 'form.title'))
             ->add('estateCategories', null, array('label' => 'Категории'));
         ;
     }
@@ -129,8 +129,8 @@ class EstatesAdmin extends Admin
     protected function configureListFields(ListMapper $list)
     {
         $list
+            ->addIdentifier('number', null, array('label' => 'form.number'))
             ->addIdentifier('title', null, array('label' => 'list.title'))
-            ->add('number', null, array('label' => 'form.number'))
             ->add('isHomepage', null, array('label' => 'form.isHomepage', 'editable' => true))
             ->add('estateCategories', null, array('label' => 'form.categories'))
             ->add('publishWorkflow.isActive', null, array('label' => 'list.isActive', 'editable' => true))

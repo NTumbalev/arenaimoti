@@ -123,7 +123,7 @@ class EstateRepository extends EntityRepository
         $qb
             ->setParameter('sell', 'sell')
             ->setParameter('locale', $locale)
-            ->orderBy('c.rank', 'ASC')
+            ->orderBy('c.createdAt', 'DESC')
             ->setFirstResult($pageSize * ($page-1))
             ->setMaxResults($pageSize);
 

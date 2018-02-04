@@ -9,7 +9,7 @@ services:
         arguments:
             - ~
             - NT\EstatesBundle\Entity\Estate
-            - NTCoreBundle:SortableCRUD
+            - NTCoreBundle:HistoryCRUD
         calls:
             - [ setTranslationDomain, [%nt.estates.admin.estates.translation%]]
             - [ setTemplates, [outer_list_rows_mosaic: NTCoreBundle:Admin:list_outer_rows_mosaic.html.twig]]

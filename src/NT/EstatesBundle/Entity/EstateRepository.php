@@ -89,7 +89,7 @@ class EstateRepository extends EntityRepository
             ->setParameter('estateCategoryId', $estateCategoryId)
             ->setParameter('locale', $locale)
             ->setParameter('now', new \DateTime())
-            ->orderBy('c.rank', 'ASC')
+            ->orderBy('c.createdAt', 'DESC')
             ->setFirstResult($offset)
             ->setMaxResults($limit);
         $query = $qb->getQuery();
@@ -156,7 +156,7 @@ class EstateRepository extends EntityRepository
         $qb
             ->setParameter('rent', 'rent')
             ->setParameter('locale', $locale)
-            ->orderBy('c.rank', 'ASC')
+            ->orderBy('c.createdAt', 'DESC')
             ->setFirstResult($pageSize * ($page-1))
             ->setMaxResults($pageSize);
 
@@ -186,7 +186,7 @@ class EstateRepository extends EntityRepository
             ->setParameter('estateId', $estateId)
             ->setParameter('locale', $locale)
             ->setParameter('now', new \DateTime())
-            ->orderBy('c.rank', 'ASC')
+            ->orderBy('c.createdAt', 'DESC')
             ->setFirstResult($offset)
             ->setMaxResults($limit);
         $query = $qb->getQuery();
@@ -216,7 +216,7 @@ class EstateRepository extends EntityRepository
             ->setParameter('estateCategoryId', $estateCategoryId)
             ->setParameter('locale', $locale)
             ->setParameter('now', new \DateTime())
-            ->orderBy('c.rank', 'ASC')
+            ->orderBy('c.createdAt', 'DESC')
             ;
         $query = $qb->getQuery();
 
@@ -232,7 +232,7 @@ class EstateRepository extends EntityRepository
             ->andWhere('t.slug IS NOT NULL')
             ->setParameter('locale', $locale)
             ->setParameter('now', new \DateTime())
-            ->orderBy('c.rank', 'ASC')
+            ->orderBy('c.createdAt', 'DESC')
             ->setFirstResult($pageSize * ($page-1))
             ->setMaxResults($pageSize);
         ;

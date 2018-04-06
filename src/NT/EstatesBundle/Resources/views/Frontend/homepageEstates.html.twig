@@ -24,18 +24,24 @@
                                     <li class="col-md-4 col-sm-6 type-rent">
                                         <div class="property-block">
                                             <a href="{{ path('estate_without_category', estate.routeParams) }}" class="property-featured-image">
-                                                {% thumbnail estate.translations[app.request.locale].image, 'index' with {'title':estate.title, 'alt':estate.title} %}
-                                                {% if estate.translations[app.request.locale].gallery is defined and estate.translations[app.request.locale].gallery is not null and estate.translations[app.request.locale].gallery|length %}
-                                                    <span class="images-count">
-                                                        <i class="fa fa-picture-o"></i>
-                                                        {{
-                                                        estate.translations[app.request.locale].gallery.galleryHasMedias|length
-                                                        }}
-                                                    </span>
+                                                {% set image = estate.translations[app.request.locale].image %}
+                                                {% set estateTitle = estate.title %}
+                                                {% if image is defined and image is not null and image|length %}
+                                                    {% thumbnail image, 'index' with {'title':estateTitle, 'alt':estateTitle} %}
+                                                    {% if estate.translations[app.request.locale].gallery is defined and estate.translations[app.request.locale].gallery is not null and estate.translations[app.request.locale].gallery|length %}
+                                                        <span class="images-count">
+                                                            <i class="fa fa-picture-o"></i>
+                                                            {{
+                                                            estate.translations[app.request.locale].gallery.galleryHasMedias|length
+                                                            }}
+                                                        </span>
+                                                    {% endif %}
+                                                    {# <span class="badges">
+                                                        {{ estateCategory.title }}
+                                                    </span> #}
+                                                {% else %}
+                                                    <img src="/images/no-image.jpeg" title="{{ estateTitle }}" alt="{{ estateTitle }}">
                                                 {% endif %}
-                                                {# <span class="badges">
-                                                    {{ estateCategory.title }}
-                                                </span> #}
                                             </a>
                                             <div class="property-info">
                                                 <h4>

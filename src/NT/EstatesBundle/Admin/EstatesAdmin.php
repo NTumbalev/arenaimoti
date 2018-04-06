@@ -296,4 +296,24 @@ class EstatesAdmin extends Admin
                 ->end()
             ->end();
     }
+
+    private function setEstateNumber($estate)
+    {
+        if (!$estate->getNumber()) {
+            $estate->setNumber(1000 + $estate->getId());
+            $em = $this->getConfigurationPool()->getContainer()->get('doctrine')->getManager();
+            $em->persist($estate);
+            $em->flush();
+        }
+    }
+
+    public function postPersist($estate)
+    {
+        $this->setEstateNumber($estate);
+    }
+
+    public function postUpdate($estate)
+    {
+        $this->setEstateNumber($estate);
+    }
 }

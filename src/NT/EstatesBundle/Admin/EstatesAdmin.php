@@ -162,7 +162,7 @@ class EstatesAdmin extends Admin
             ->with('tab.general', array('tab' => true))
                 ->add('number', null, array(
                     'label' => 'form.number',
-                    'required' => true
+                    'required' => false
                 ))
                 ->add('type', 'choice', array(
                     'label' => 'form.type',

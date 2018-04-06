@@ -46,7 +46,7 @@ class Estate implements PublishWorkflowInterface, SeoAwareInterface
 
     /**
      * @var string
-     * @ORM\Column(name="number", type="string")
+     * @ORM\Column(name="number", type="string", nullable=true)
      */
     protected $number;
 

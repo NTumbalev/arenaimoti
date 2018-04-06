@@ -1,6 +1,6 @@
 {% extends '::base.html.twig' %}
 
-{% import "::paginatorWithRouteAndSlug.html.twig" as pager %}
+{% import "NTEstatesBundle:Frontend:paginatorForSearch.html.twig" as pager %}
 
 {% block javascripts %}
     {{parent()}}
@@ -149,7 +149,7 @@
                         </div>
 
                         {% if estates is defined and estates is not null and estates|length %}
-                            {{ pager.pager(estates, "estates_list") }}
+                            {{ pager.pager(estates, "estates_search_results", app.request.query.all) }}
                         {% endif %}
                     </div>
                 </div>

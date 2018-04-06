@@ -1263,6 +1263,7 @@ html[xmlns] .slides {
 }
 .property-amenities{
 	background:#f8f8f8;
+	min-height: 48px;
 }
 .property-amenities > span{
 	display:block;

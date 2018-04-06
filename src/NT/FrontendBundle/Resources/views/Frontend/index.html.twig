@@ -24,7 +24,22 @@
 {% block javascripts %}
     {{parent()}}
     <script type="text/javascript">
+        function alignBoxes(selector) {
+            var maxHeight = 0;
+            $.each($(selector), function(index, value){
+                var currentHeight = $(value).innerHeight();
+                if (currentHeight > maxHeight) {
+                    maxHeight = currentHeight;
+                }
+            });
+
+            $(selector).css('min-height', maxHeight);
+        }
+
         $(function(){
+            alignBoxes('.property-info h4');
+            alignBoxes('.property-info');
+
             $('#ads-trigger').click(function () {
                 var additionalRow = $('.row.additional');
             	if ($(this).hasClass('advanced')) {
@@ -46,6 +61,6 @@
             	}
             	return false;
             });
-        })
+        });
     </script>
 {% endblock %}

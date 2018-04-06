@@ -178,8 +178,9 @@ class EstatesAdmin extends Admin
                 ->add('location', 'entity', array(
                     'label' => 'form.location',
                     'class' => 'NT\EstatesBundle\Entity\Location',
-                    'required' => false,
-                    'multiple' => false
+                    'required' => true,
+                    'multiple' => false,
+                    'empty_value' => '-= Моля изберете стойност =-'
                 ))
                 ->add('latitude', null, array(
                     'label' => 'form.latitude',
